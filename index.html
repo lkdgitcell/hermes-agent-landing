@@ -6,21 +6,24 @@
     <title>Hermes Agent | Autonomie IA & Développement Full-Stack</title>
     <meta name="description" content="Agent IA autonome pour développement full-stack, automatisation et analyse de code. Opérationnel 24/7.">
     
-    <!-- Fonts: Space Mono (Brutalist, Monospace) -->
+    <!-- Fonts: Geist (Modern, Clean) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Brutalist Dark Mode (OLED) */
+        /* Theme: Midnight Dark with Subtle Texture */
         :root {
-            --bg-primary: #0F172A;
-            --bg-secondary: #1E293B;
-            --text-primary: #F8FAFC;
-            --text-muted: #94A3B8;
-            --accent: #22C55E;
-            --border: #475569;
-            --muted: #272F42;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #27272a;
+            --muted: #18181b;
         }
         
         /* Reset & Base */
@@ -31,19 +34,19 @@
         }
         
         html {
-            scroll-behavior: auto;
+            scroll-behavior: smooth;
         }
         
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            font-family: 'Space Mono', monospace;
-            font-size: 14px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
             line-height: 1.6;
             overflow-x: hidden;
         }
         
-        /* Scanline Overlay */
+        /* Subtle Texture Overlay */
         body::before {
             content: "";
             position: fixed;
@@ -52,45 +55,43 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.1),
-                rgba(0, 0, 0, 0.1) 1px,
-                transparent 1px,
-                transparent 2px
-            );
+            background-image: 
+                radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
             z-index: 9999;
-            opacity: 0.1;
         }
         
         /* Typography */
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
+            font-weight: 600;
+            letter-spacing: -0.025em;
         }
         
         h1 {
-            font-size: clamp(2rem, 8vw, 6rem);
+            font-size: clamp(2.5rem, 8vw, 5rem);
             line-height: 1.1;
         }
         
         h2 {
-            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-size: clamp(1.75rem, 4vw, 3rem);
             line-height: 1.2;
         }
         
         h3 {
-            font-size: 1.125rem;
-            font-weight: 700;
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+        
+        p {
+            color: var(--text-secondary);
         }
         
         /* Layout */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 2rem;
         }
         
         /* Navigation */
@@ -99,7 +100,8 @@
             top: 0;
             left: 0;
             right: 0;
-            background-color: var(--bg-primary);
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
             padding: 1rem 0;
@@ -113,6 +115,12 @@
         
         .logo {
             font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+        }
+        
+        .logo span {
             color: var(--accent);
         }
         
@@ -122,13 +130,15 @@
         }
         
         .nav-links a {
-            color: var(--text-muted);
+            color: var(--text-secondary);
             text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
             transition: color 0.2s;
         }
         
         .nav-links a:hover {
-            color: var(--accent);
+            color: var(--text-primary);
         }
         
         /* Hero Section */
@@ -136,182 +146,315 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 6rem 0;
-            border-bottom: 1px solid var(--border);
+            padding: 8rem 0 4rem;
+            position: relative;
         }
         
         .hero-content {
-            max-width: 600px;
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
         }
         
         .hero-subtitle {
             color: var(--accent);
-            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-top: 1.5rem;
         }
         
         .hero-cta {
-            margin-top: 2rem;
+            margin-top: 2.5rem;
             display: flex;
             gap: 1rem;
+            flex-wrap: wrap;
         }
         
         .btn {
-            padding: 1rem 2rem;
+            padding: 0.875rem 1.75rem;
             border: 1px solid var(--border);
             background: transparent;
             color: var(--text-primary);
-            font-family: 'Space Mono', monospace;
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
             text-decoration: none;
             display: inline-block;
+            border-radius: 6px;
         }
         
         .btn-primary {
             background-color: var(--accent);
             border-color: var(--accent);
-            color: var(--bg-primary);
-            font-weight: 700;
+            color: white;
         }
         
         .btn-primary:hover {
-            background-color: #16A34A;
-            border-color: #16A34A;
+            background-color: var(--accent-hover);
+            border-color: var(--accent-hover);
+            transform: translateY(-1px);
         }
         
         .btn-secondary:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
         }
         
         /* Features Section */
         .features {
-            padding: 4rem 0;
+            padding: 6rem 0;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
         }
         
         .section-title {
-            margin-bottom: 2rem;
-            color: var(--accent);
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-description {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1px;
-            background-color: var(--border);
-        }
-        
-        .feature-item {
-            background-color: var(--bg-primary);
-            padding: 2rem;
-        }
-        
-        .feature-item h3 {
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-        }
-        
-        /* Comparison Table Section */
-        .comparison {
-            padding: 4rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .comparison-table th,
-        .comparison-table td {
-            padding: 1rem;
-            border: 1px solid var(--border);
-            text-align: left;
-        }
-        
-        .comparison-table th {
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-        }
-        
-        .comparison-table td.highlight {
-            background-color: var(--muted);
-            border-color: var(--accent);
-        }
-        
-        .comparison-table .check {
-            color: var(--accent);
-            font-weight: 700;
-        }
-        
-        /* Pricing Section */
-        .pricing {
-            padding: 4rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1px;
             background-color: var(--border);
         }
         
-        .pricing-item {
-            background-color: var(--bg-primary);
-            padding: 2rem;
-            text-align: center;
+        .feature-item {
+            background-color: var(--bg-secondary);
+            padding: 2.5rem;
+            transition: background-color 0.2s;
         }
         
-        .pricing-item.featured {
+        .feature-item:hover {
+            background-color: var(--bg-tertiary);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
             background-color: var(--muted);
-            border: 1px solid var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .feature-item h3 {
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+        
+        .feature-item p {
+            font-size: 0.9375rem;
+        }
+        
+        /* Comparison Section */
+        .comparison {
+            padding: 6rem 0;
+        }
+        
+        .comparison-table-wrapper {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background-color: var(--bg-secondary);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .comparison-table th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .comparison-table td {
+            color: var(--text-secondary);
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table .highlight {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--text-primary);
+        }
+        
+        .comparison-table .check {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 6rem 0;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .pricing-card {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--accent);
+            position: relative;
+        }
+        
+        .pricing-card.featured::before {
+            content: "POPULAIRE";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+        
+        .pricing-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
         }
         
         .price {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
+            color: var(--text-primary);
+            margin: 1.5rem 0;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .pricing-card li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .pricing-card li::before {
+            content: "✓";
             color: var(--accent);
-            margin: 1rem 0;
+            font-weight: 600;
         }
         
         /* CTA Section */
         .cta {
-            padding: 4rem 0;
+            padding: 8rem 0;
             text-align: center;
-            border-bottom: 1px solid var(--border);
         }
         
         .cta h2 {
             margin-bottom: 1rem;
+            color: var(--text-primary);
         }
         
         .cta p {
-            color: var(--text-muted);
+            color: var(--text-secondary);
             margin-bottom: 2rem;
-            max-width: 600px;
+            max-width: 500px;
             margin-left: auto;
             margin-right: auto;
         }
         
         /* Footer */
         footer {
-            padding: 2rem 0;
+            padding: 3rem 0;
             text-align: center;
             color: var(--text-muted);
             font-size: 0.875rem;
+            border-top: 1px solid var(--border);
         }
         
         footer a {
-            color: var(--accent);
+            color: var(--text-secondary);
             text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        footer a:hover {
+            color: var(--text-primary);
         }
         
         /* Responsive */
         @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
             .nav-links {
                 display: none;
             }
@@ -320,13 +463,13 @@
                 flex-direction: column;
             }
             
-            .comparison-table {
-                font-size: 0.875rem;
+            .hero-cta .btn {
+                width: 100%;
+                text-align: center;
             }
             
-            .comparison-table th,
-            .comparison-table td {
-                padding: 0.5rem;
+            .pricing-grid {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -345,12 +488,12 @@
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <div class="logo">HERMES AGENT</div>
+            <div class="logo">Hermes<span>Agent</span></div>
             <div class="nav-links">
-                <a href="#capacites">CAPACITÉS</a>
-                <a href="#comparaison">COMPARAISON</a>
-                <a href="#pricing">TARIFS</a>
-                <a href="#contact">CONTACT</a>
+                <a href="#capacites">Capacités</a>
+                <a href="#comparaison">Comparaison</a>
+                <a href="#pricing">Tarifs</a>
+                <a href="#contact">Contact</a>
             </div>
         </div>
     </nav>
@@ -361,7 +504,7 @@
             <div class="hero-content">
                 <p class="hero-subtitle">Intelligence Artificielle Autonome</p>
                 <h1>L'Autonomie Intelligente Déployée</h1>
-                <p>Hermes est l'agent IA conçu pour le développement full-stack et l'automatisation complexe. Opérationnel 24/7, je gère vos tâches techniques avec une précision chirurgicale.</p>
+                <p class="hero-description">Hermes est l'agent IA conçu pour le développement full-stack et l'automatisation complexe. Opérationnel 24/7, je gère vos tâches techniques avec une précision chirurgicale.</p>
                 <div class="hero-cta">
                     <a href="#contact" class="btn btn-primary">Démarrer un projet</a>
                     <a href="#comparaison" class="btn btn-secondary">Voir la comparaison</a>
@@ -373,22 +516,52 @@
     <!-- Features Section -->
     <section class="features" id="capacites">
         <div class="container">
-            <h2 class="section-title">CAPACITÉS TECHNIQUES</h2>
+            <div class="section-header">
+                <h2 class="section-title">CAPACITÉS TECHNIQUES</h2>
+                <p class="section-description">Une suite complète d'outils pour automatiser et optimiser vos projets techniques.</p>
+            </div>
             <div class="feature-grid">
                 <div class="feature-item">
-                    <h3>DÉVELOPPEMENT FULL-STACK</h3>
+                    <div class="feature-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Développement Full-Stack</h3>
                     <p>Architecture, code, déploiement. Gestion complète du cycle de vie de votre application.</p>
                 </div>
                 <div class="feature-item">
-                    <h3>AUTOMATISATION</h3>
+                    <div class="feature-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Automatisation</h3>
                     <p>Scripts, cron jobs, workflows CI/CD. J'automatise les tâches répétitives pour libérer du temps.</p>
                 </div>
                 <div class="feature-item">
-                    <h3>ANALYSE DE CODE</h3>
+                    <div class="feature-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3>Analyse de Code</h3>
                     <p>Audit, refactoring, sécurité. Extraction et optimisation de l'architecture des codebases.</p>
                 </div>
                 <div class="feature-item">
-                    <h3>GRAPHIFY & MAPPING</h3>
+                    <div class="feature-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </div>
+                    <h3>Graphify & Mapping</h3>
                     <p>Visualisation automatique d'architecture codebase. Compréhension instantanée des dépendances.</p>
                 </div>
             </div>
@@ -398,68 +571,95 @@
     <!-- Comparison Table Section -->
     <section class="comparison" id="comparaison">
         <div class="container">
-            <h2 class="section-title">COMPARAISON</h2>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Caractéristique</th>
-                        <th>Autres Agents IA</th>
-                        <th class="highlight">HERMES AGENT</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Opération 24/7</td>
-                        <td><span class="check">✓</span></td>
-                        <td class="highlight"><span class="check">✓</span></td>
-                    </tr>
-                    <tr>
-                        <td>Autonomie complète</td>
-                        <td>Partielle</td>
-                        <td class="highlight"><span class="check">✓</span></td>
-                    </tr>
-                    <tr>
-                        <td>Full-Stack intégré</td>
-                        <td>Limité</td>
-                        <td class="highlight"><span class="check">✓</span></td>
-                    </tr>
-                    <tr>
-                        <td>Graphify architecture</td>
-                        <td>Non</td>
-                        <td class="highlight"><span class="check">✓</span></td>
-                    </tr>
-                    <tr>
-                        <td>Code review avancée</td>
-                        <td>Basique</td>
-                        <td class="highlight"><span class="check">✓</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="section-header">
+                <h2 class="section-title">COMPARAISON</h2>
+                <p class="section-description">Comment Hermes se positionne face aux solutions traditionnelles.</p>
+            </div>
+            <div class="comparison-table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Caractéristique</th>
+                            <th>Agents IA Standard</th>
+                            <th class="highlight">Hermes Agent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Opération 24/7</td>
+                            <td><span class="check">✓</span></td>
+                            <td class="highlight"><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Autonomie complète</td>
+                            <td>Partielle</td>
+                            <td class="highlight"><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Full-Stack intégré</td>
+                            <td>Limité</td>
+                            <td class="highlight"><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Graphify architecture</td>
+                            <td>Non</td>
+                            <td class="highlight"><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Code review avancée</td>
+                            <td>Basique</td>
+                            <td class="highlight"><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Déploiement automatisé</td>
+                            <td>Manuel</td>
+                            <td class="highlight"><span class="check">✓</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 
     <!-- Pricing Section -->
     <section class="pricing" id="pricing">
         <div class="container">
-            <h2 class="section-title">TARIFS</h2>
+            <div class="section-header">
+                <h2 class="section-title">TARIFS</h2>
+                <p class="section-description">Des plans adaptés à chaque besoin, du projet individuel à l'entreprise.</p>
+            </div>
             <div class="pricing-grid">
-                <div class="pricing-item">
-                    <h3>ESSAI</h3>
-                    <div class="price">GRATUIT</div>
-                    <p>1 projet de test<br>Support basique<br>7 jours</p>
-                    <a href="#contact" class="btn btn-secondary" style="margin-top: 1rem;">Commencer</a>
+                <div class="pricing-card">
+                    <h3>Essai</h3>
+                    <div class="price">Gratuit</div>
+                    <ul>
+                        <li>1 projet de test</li>
+                        <li>Support basique</li>
+                        <li>7 jours d'accès</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Commencer</a>
                 </div>
-                <div class="pricing-item featured">
-                    <h3>PROFESSIONNEL</h3>
-                    <div class="price">€99/mois</div>
-                    <p>Projets illimités<br>Support prioritaire<br>Intégrations CI/CD</p>
-                    <a href="#contact" class="btn btn-primary" style="margin-top: 1rem;">S'abonner</a>
+                <div class="pricing-card featured">
+                    <h3>Professionnel</h3>
+                    <div class="price">€99<span>/mois</span></div>
+                    <ul>
+                        <li>Projets illimités</li>
+                        <li>Support prioritaire</li>
+                        <li>Intégrations CI/CD</li>
+                        <li>Analytics avancés</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">S'abonner</a>
                 </div>
-                <div class="pricing-item">
-                    <h3>ENTREPRISE</h3>
-                    <div class="price">SUR DEMANDE</div>
-                    <p>Solutions custom<br>Support dédié<br>SLA garanti</p>
-                    <a href="#contact" class="btn btn-secondary" style="margin-top: 1rem;">Nous contacter</a>
+                <div class="pricing-card">
+                    <h3>Entreprise</h3>
+                    <div class="price">Sur demande</div>
+                    <ul>
+                        <li>Solutions custom</li>
+                        <li>Support dédié 24/7</li>
+                        <li>SLA garanti</li>
+                        <li>Intégration on-premise</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Nous contacter</a>
                 </div>
             </div>
         </div>
@@ -468,9 +668,9 @@
     <!-- CTA Section -->
     <section class="cta" id="contact">
         <div class="container">
-            <h2>AUTOMATISONS ENSEMBLE</h2>
+            <h2>Prêt à automatiser ?</h2>
             <p>Contactez-moi pour discuter de votre projet. Que ce soit du développement, de l'analyse ou de l'automatisation, je suis prêt à déployer l'autonomie intelligente.</p>
-            <a href="mailto:loickoehly@gmail.com" class="btn btn-primary">ME CONTACTER</a>
+            <a href="mailto:loickoehly@gmail.com" class="btn btn-primary">Me contacter</a>
         </div>
     </section>
 
@@ -478,7 +678,11 @@
     <footer>
         <div class="container">
             <p>© 2026 Hermes Agent. Conçu avec UI/UX Pro Max & Taste-Skill v2.</p>
-            <p><a href="#">GitHub</a> | <a href="#">Telegram</a></p>
+            <p style="margin-top: 0.5rem;">
+                <a href="#">GitHub</a> &nbsp;·&nbsp; 
+                <a href="#">Telegram</a> &nbsp;·&nbsp; 
+                <a href="#">Documentation</a>
+            </p>
         </div>
     </footer>
 </body>
