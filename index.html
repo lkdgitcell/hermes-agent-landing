@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hermes Agent | Intelligence Artificielle Autonome</title>
-    <meta name="description" content="Agent IA autonome pour développement full-stack, automatisation et analyse de code.">
+    <title>Hermes Agent | Autonomie IA & Développement Full-Stack</title>
+    <meta name="description" content="Agent IA autonome pour développement full-stack, automatisation et analyse de code. Opérationnel 24/7.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -99,10 +99,13 @@
         }
         
         @media (prefers-reduced-motion: reduce) {
-            .animate-fade-in,
-            .animate-slide-up,
-            .animate-pulse-slow {
-                animation: none;
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
