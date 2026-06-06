@@ -50,3 +50,12 @@
 
 ## ✅ CONCLUSION
 Tout est fonctionnel et déployé. La landing page possède un background animé via Canvas API, des animations GSAP, et intègre tous les skills Leonxlnx ainsi que les patterns IPSSI.
+
+
+## 🆕 AJOUTS RÉCENTS
+- **Section Comparison** : Tableau comparatif des fonctionnalités HERMES AGENT vs autres solutions.
+- **Styles CSS** : Ajout des styles pour la section comparison (grille, couleurs, typographie).
+
+## 🆕 AJOUTS RÉCENTS
+- **Section Comparison** : Tableau comparatif des fonctionnalités HERMES AGENT vs autres solutions.
+- **Styles CSS** : Ajout des styles pour la section comparison (grille, couleurs, typographie).
