@@ -670,5 +670,42 @@
             </p>
         </div>
     </footer>
+    <!-- GSAP Animations Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            gsap.from('.hero h1', {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: 'power3.out',
+                delay: 0.2
+            });
+            
+            gsap.from('.hero-subtitle', {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                ease: 'power3.out',
+                delay: 0.4
+            });
+            
+            gsap.from('.feature-item', {
+                scrollTrigger: {
+                    trigger: '.features',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: 'power3.out'
+            });
+        });
+    </script>
 </body>
 </html>
