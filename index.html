@@ -6,19 +6,267 @@
     <title>HERMES AGENT | Autonomie IA & Développement Full-Stack</title>
     <meta name="description" content="Agent IA autonome pour développement full-stack, automatisation et analyse de code. Opérationnel 24/7.">
     
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Preload Critical Fonts for FCP Optimization -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Shared Styles -->
-    <link rel="stylesheet" href="styles/shared.css">
-    
-    <!-- Page-specific Styles -->
-    <style>
+    <!-- Inline Critical CSS for FCP Optimization (Hero Section Above the Fold) -->
+    <style id="critical-css">
+        /* Layer Architecture */
+        @layer settings, reset, base, layout, components, utilities;
+
+        /* ============================================================
+           LAYER: settings — @property typées + tokens oklch
+           ============================================================ */
+        @layer settings {
+            /* Propriétés animables typées */
+            @property --color-accent {
+                syntax: '<color>';
+                inherits: true;
+                initial-value: oklch(63% 0.19 220);
+            }
+            @property --color-surface {
+                syntax: '<color>';
+                inherits: true;
+                initial-value: oklch(97.5% 0.004 87);
+            }
+            @property --color-ink {
+                syntax: '<color>';
+                inherits: true;
+                initial-value: oklch(8% 0.003 265);
+            }
+            @property --count {
+                syntax: '<integer>';
+                inherits: false;
+                initial-value: 0;
+            }
+
+            :root {
+                color-scheme: dark;
+                
+                /* ── Palette principale (oklch) ── */
+                --accent: oklch(63% 0.19 220);
+                --accent-dim: color-mix(in oklch, var(--accent) 10%, transparent);
+                --accent-border: color-mix(in oklch, var(--accent) 22%, transparent);
+                
+                /* Dark theme palette (adapted for Hermes) */
+                --bg-primary: oklch(8% 0.003 265);
+                --bg-secondary: oklch(12% 0.004 265);
+                --bg-tertiary: oklch(15% 0.005 265);
+                --bg-quaternary: oklch(18% 0.006 265);
+                
+                --text-primary: oklch(98% 0.002 265);
+                --text-secondary: oklch(75% 0.008 265);
+                --text-muted: oklch(60% 0.008 265);
+                
+                --border: oklch(25% 0.006 265);
+                --border-strong: oklch(35% 0.008 265);
+                
+                /* ── Ombres ── */
+                --shadow-sm: 0 1px 3px color-mix(in oklch, var(--accent) 15%, transparent);
+                --shadow-md: 0 4px 12px color-mix(in oklch, var(--accent) 18%, transparent);
+                --shadow-lg: 0 8px 24px color-mix(in oklch, var(--accent) 22%, transparent);
+                --shadow-xl: 0 16px 40px color-mix(in oklch, var(--accent) 28%, transparent);
+                
+                /* ── Radius ── */
+                --radius-sm: 0;
+                --radius-md: 0;
+                --radius-lg: 0;
+                --radius-xl: 0;
+                
+                /* ── Transitions ── */
+                --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+                
+                /* ── Espacement (scale 4px) ── */
+                --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
+                --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem;
+                --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem;
+                
+                /* ── Typographie fluide ── */
+                --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
+                --text-sm: clamp(0.8rem, 0.75rem + 0.30vw, 0.875rem);
+                --text-base: clamp(0.95rem, 0.90rem + 0.35vw, 1rem);
+                --text-lg: clamp(1rem, 0.95rem + 0.40vw, 1.1rem);
+                --text-xl: clamp(1.1rem, 1rem + 0.60vw, 1.25rem);
+                --text-2xl: clamp(1.3rem, 1.1rem + 0.90vw, 1.6rem);
+                --text-3xl: clamp(1.6rem, 1.3rem + 1.50vw, 2.2rem);
+                --text-4xl: clamp(2rem, 1.5rem + 2.50vw, 3rem);
+                --text-hero: clamp(3.5rem, 6vw + 1rem, 7rem);
+                
+                /* ── Gradients ── */
+                --gradient-accent: linear-gradient(135deg, var(--accent) 0%, oklch(58% 0.19 220) 100%);
+                --gradient-hero: linear-gradient(180deg, 
+                    oklch(8% 0.003 265) 0%, 
+                    oklch(12% 0.004 265) 50%, 
+                    oklch(10% 0.003 265) 100%);
+            }
+        }
+
+        /* ============================================================
+           LAYER: reset
+           ============================================================ */
+        @layer reset {
+            *, *::before, *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            
+            html { 
+                font-size: 16px; 
+                scroll-behavior: smooth;
+            }
+            
+            img, svg { display: block; max-width: 100%; }
+            ul, ol { list-style: none; }
+            button { font-family: inherit; cursor: pointer; }
+            a { color: inherit; text-decoration: none; }
+        }
+
+        /* ============================================================
+           LAYER: base — typographie, accessibilité, scrollbar
+           ============================================================ */
+        @layer base {
+            body {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                background-color: var(--bg-primary);
+                background-image: var(--gradient-hero);
+                color: var(--text-secondary);
+                min-height: 100vh;
+                overflow-x: hidden;
+                line-height: 1.6;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                font-family: 'Playfair Display', serif;
+                font-weight: 600;
+                letter-spacing: -0.025em;
+            }
+            
+            h1 {
+                font-size: clamp(2.5rem, 8vw, 5rem);
+                line-height: 1.1;
+                text-transform: uppercase;
+            }
+            
+            h2 {
+                font-size: clamp(1.75rem, 4vw, 3rem);
+                line-height: 1.2;
+            }
+            
+            /* Accessibility: Reduced motion */
+            @media (prefers-reduced-motion: reduce) {
+                *, *::before, *::after {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                    scroll-behavior: auto !important;
+                }
+            }
+        }
+
+        /* ============================================================
+           LAYER: layout
+           ============================================================ */
+        @layer layout {
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 2rem;
+            }
+        }
+
+        /* ============================================================
+           LAYER: components
+           ============================================================ */
         @layer components {
+            /* Navigation */
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background-color: color-mix(in oklch, var(--bg-primary) 90%, transparent);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid var(--border);
+                z-index: 1000;
+                padding: 1rem 0;
+            }
+            
+            nav .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .logo {
+                font-weight: 700;
+                font-size: 1.25rem;
+                color: var(--text-primary);
+                letter-spacing: -0.03em;
+            }
+            
+            .logo span {
+                color: var(--accent);
+            }
+            
+            .nav-links {
+                display: flex;
+                gap: 2rem;
+            }
+            
+            .nav-links a {
+                color: var(--text-secondary);
+                text-decoration: none;
+                font-size: 0.875rem;
+                font-weight: 500;
+                transition: color 0.2s;
+            }
+            
+            .nav-links a:hover {
+                color: var(--text-primary);
+            }
+            
+            /* Buttons */
+            .btn {
+                padding: 0.875rem 1.75rem;
+                border: 1px solid var(--border);
+                background: transparent;
+                color: var(--text-primary);
+                font-family: inherit;
+                font-size: 0.875rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s var(--transition-smooth);
+                text-decoration: none;
+                display: inline-block;
+                border-radius: 0;
+            }
+            
+            .btn-primary {
+                background-color: var(--accent);
+                border-color: var(--accent);
+                color: white;
+            }
+            
+            .btn-primary:hover {
+                background-color: color-mix(in oklch, var(--accent) 85%, black);
+                border-color: color-mix(in oklch, var(--accent) 85%, black);
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-lg);
+            }
+            
+            .btn-secondary {
+                color: var(--text-primary);
+            }
+            
+            .btn-secondary:hover {
+                border-color: var(--text-secondary);
+                color: var(--text-primary);
+                background-color: var(--bg-tertiary);
+            }
+
             /* Hero Section */
             .hero {
                 min-height: 100vh;
@@ -73,239 +321,65 @@
                 animation: fade-up 0.55s ease forwards;
                 animation-delay: 0.8s;
             }
-            
-            /* Features Section */
-            .features {
-                padding: 6rem 0;
-                background-color: var(--bg-secondary);
-                border-top: 1px solid var(--border);
-                border-bottom: 1px solid var(--border);
+        }
+
+        /* ============================================================
+           LAYER: utilities — animations & helpers
+           ============================================================ */
+        @layer utilities {
+            /* Keyframe animations */
+            @keyframes hero-reveal {
+                from { clip-path: inset(0 100% 0 0); }
+                to { clip-path: inset(0 0% 0 0); }
             }
             
-            .section-header {
-                text-align: center;
-                margin-bottom: 4rem;
-            }
-            
-            .section-title {
-                color: var(--text-primary);
-                margin-bottom: 1rem;
-            }
-            
-            .section-description {
-                color: var(--text-secondary);
-                max-width: 600px;
-                margin: 0 auto;
-            }
-            
-            .feature-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 1px;
-                background-color: var(--border);
-            }
-            
-            .feature-item {
-                background-color: var(--bg-secondary);
-                padding: 2.5rem;
-                transition: background-color 0.2s, transform 0.3s;
-            }
-            
-            .feature-item:hover {
-                background-color: var(--bg-tertiary);
-                transform: translateY(-4px);
-            }
-            
-            .feature-icon {
-                width: 48px;
-                height: 48px;
-                background-color: var(--bg-tertiary);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-bottom: 1.5rem;
-                color: var(--accent);
-                border-radius: var(--radius-md);
-            }
-            
-            .feature-item h3 {
-                margin-bottom: 0.75rem;
-                color: var(--text-primary);
-            }
-            
-            .feature-item p {
-                font-size: 0.9375rem;
-            }
-            
-            /* Comparison Section */
-            .comparison {
-                padding: 6rem 0;
-                background-color: var(--bg-primary);
-            }
-            
-            .comparison-table-wrapper {
-                overflow-x: auto;
-                border: 1px solid var(--border);
-                background-color: var(--bg-secondary);
-                border-radius: var(--radius-md);
-            }
-            
-            .comparison-table {
-                width: 100%;
-                border-collapse: collapse;
-                min-width: 600px;
-            }
-            
-            .comparison-table th,
-            .comparison-table td {
-                padding: 1.25rem 1.5rem;
-                text-align: left;
-                border-bottom: 1px solid var(--border);
-            }
-            
-            .comparison-table th {
-                background-color: var(--bg-tertiary);
-                color: var(--text-primary);
-                font-weight: 600;
-                font-size: 0.875rem;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-            }
-            
-            .comparison-table td {
-                color: var(--text-secondary);
-            }
-            
-            .comparison-table tr:last-child td {
-                border-bottom: none;
-            }
-            
-            .comparison-table .highlight {
-                background-color: var(--bg-quaternary);
-                color: var(--text-primary);
-                border-left: 2px solid var(--accent);
-            }
-            
-            .comparison-table .check {
-                color: var(--accent);
-                font-weight: 600;
-            }
-            
-            /* Pricing Section */
-            .pricing {
-                padding: 6rem 0;
-                background-color: var(--bg-secondary);
-                border-top: 1px solid var(--border);
-                border-bottom: 1px solid var(--border);
-            }
-            
-            .pricing-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 1px;
-                background-color: var(--border);
-                border-radius: var(--radius-md);
-                overflow: hidden;
-            }
-            
-            .pricing-card {
-                background-color: var(--bg-secondary);
-                padding: 2.5rem;
-                text-align: center;
-                transition: background-color 0.2s, transform 0.3s;
-            }
-            
-            .pricing-card:hover {
-                background-color: var(--bg-tertiary);
-                transform: scale(1.02);
-            }
-            
-            .pricing-card.featured {
-                background-color: var(--bg-tertiary);
-                position: relative;
-                transform: scale(1.05);
-                z-index: 1;
-            }
-            
-            .pricing-card.featured::before {
-                content: "POPULAIRE";
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                background-color: var(--accent);
-                color: white;
-                font-size: 0.75rem;
-                font-weight: 600;
-                padding: 0.25rem 0;
-                text-align: center;
-                letter-spacing: 0.1em;
-            }
-            
-            .pricing-card h3 {
-                color: var(--text-primary);
-                margin-bottom: 0.5rem;
-            }
-            
-            .price {
-                font-size: 3rem;
-                font-weight: 700;
-                color: var(--text-primary);
-                margin: 1.5rem 0;
-            }
-            
-            .price span {
-                font-size: 1rem;
-                font-weight: 400;
-                color: var(--text-secondary);
-            }
-            
-            .pricing-card ul {
-                list-style: none;
-                margin: 2rem 0;
-                text-align: left;
-            }
-            
-            .pricing-card li {
-                padding: 0.5rem 0;
-                color: var(--text-secondary);
-                font-size: 0.9375rem;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
-            
-            .pricing-card li::before {
-                content: "•";
-                color: var(--accent);
-                font-weight: 600;
-            }
-            
-            /* CTA Section */
-            .cta {
-                padding: 8rem 0;
-                text-align: center;
-                background-color: var(--bg-primary);
-            }
-            
-            .cta h2 {
-                margin-bottom: 1rem;
-                color: var(--text-primary);
-            }
-            
-            .cta p {
-                color: var(--text-secondary);
-                margin-bottom: 2rem;
-                max-width: 500px;
-                margin-left: auto;
-                margin-right: auto;
+            @keyframes fade-up {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
         }
+
+        /* Particles Canvas Background */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* Ensure content is above the canvas */
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        section {
+            position: relative;
+            z-index: 1;
+        }
+        
+        footer {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
     
-    <!-- GSAP & ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-</style>
+    <!-- Preload Full Stylesheet for Non-Critical CSS -->
+    <link rel="preload" href="styles/shared.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="styles/shared.css"></noscript>
+    
+    <!-- GSAP & ScrollTrigger (deferred for performance) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
     <!-- Scroll Progress -->

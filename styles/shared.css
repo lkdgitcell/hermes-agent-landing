@@ -164,7 +164,7 @@
     
     ::-webkit-scrollbar-thumb {
         background: var(--border-strong);
-        border-radius: 4px;
+        border-radius: 0;
     }
     
     ::-webkit-scrollbar-thumb:hover {
@@ -322,7 +322,7 @@
         transition: all 0.2s var(--transition-smooth);
         text-decoration: none;
         display: inline-block;
-        border-radius: var(--radius-sm);
+        border-radius: 0;
     }
     
     .btn-primary {
@@ -352,7 +352,7 @@
     .card {
         background-color: var(--bg-secondary);
         border: 1px solid var(--border);
-        border-radius: var(--radius-md);
+        border-radius: 0;
         padding: 1.5rem;
         transition: all 0.3s ease;
     }
@@ -367,7 +367,7 @@
     pre {
         background-color: var(--bg-tertiary);
         border: 1px solid var(--border);
-        border-radius: var(--radius-md);
+        border-radius: 0;
         padding: 1.5rem;
         overflow-x: auto;
         font-family: 'Space Mono', 'Fira Code', monospace;
@@ -378,7 +378,7 @@
         font-family: 'Space Mono', 'Fira Code', monospace;
         background-color: var(--bg-tertiary);
         padding: 0.2rem 0.4rem;
-        border-radius: 4px;
+        border-radius: 0;
         font-size: 0.875em;
     }
     
@@ -466,7 +466,7 @@
         background-color: var(--accent);
         color: white;
         border: none;
-        border-radius: 50%;
+        border-radius: 0;
         cursor: pointer;
         opacity: 0;
         visibility: hidden;
