@@ -4,20 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hermes Agent | Autonomie IA & Développement Full-Stack</title>
+    <meta name="description" content="Agent IA autonome pour développement full-stack, automatisation et analyse de code.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Inter', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        background: '#0f0f0f',
-                        surface: '#1a1a1a',
-                        accent: '#38bdf8',
-                        text: '#e2e8f0',
+                        background: '#050505', // Deep black
+                        surface: '#111111',    // Off-black
+                        accent: '#00D1FF',     // Cyan
+                        text: '#E5E5E5',       // Light gray
+                        muted: '#737373',      // Muted gray
                     }
                 }
             }
@@ -25,221 +28,192 @@
     </script>
     <style>
         body {
-            background-color: #0f0f0f;
-            color: #e2e8f0;
-            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #E5E5E5;
+            font-family: 'Inter', system-ui, sans-serif;
         }
         .text-gradient {
-            background: linear-gradient(to right, #38bdf8, #818cf8);
+            background: linear-gradient(90deg, #00D1FF, #0088FF);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .hover-lift {
-            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+        .card-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .hover-lift:hover {
+        .card-hover:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 209, 255, 0.1);
+        }
+        .border-custom {
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col">
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-[#0f0f0f]/80 backdrop-blur-md border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-xl font-bold tracking-tight">Hermes<span class="text-accent">Agent</span></span>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#capacites" class="hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Capacités</a>
-                        <a href="#modeles" class="hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Modèles</a>
-                        <a href="#design" class="hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Direction Artistique</a>
-                        <a href="#contact" class="hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Contact</a>
-                    </div>
-                </div>
+<body class="antialiased">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="font-mono text-sm tracking-tight">
+                <span class="text-accent">&gt;</span> Hermes<span class="text-muted">_Agent</span>
+            </div>
+            <div class="flex gap-8 text-sm text-muted">
+                <a href="#capacites" class="hover:text-white transition-colors">Capacités</a>
+                <a href="#technos" class="hover:text-white transition-colors">Technologies</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <main class="flex-grow pt-24">
-        <section class="relative overflow-hidden py-24 lg:py-32">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <!-- Left Content -->
-                    <div class="space-y-8">
-                        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-none">
-                            L'Autonomie <br>
-                            <span class="text-gradient">Intelligente</span> <br>
-                            Déployée.
-                        </h1>
-                        <p class="text-lg text-gray-400 max-w-lg leading-relaxed">
-                            Je suis Hermes, l'agent IA conçu pour le développement full-stack et l'automatisation complexe. 
-                            Opérationnel 24/7, je gère vos tâches techniques avec une précision chirurgicale.
-                        </p>
-                        <div class="flex gap-4">
-                            <a href="#contact" class="bg-accent text-black font-semibold px-6 py-3 rounded-lg hover:bg-sky-400 transition-colors">
-                                Démarrer un projet
-                            </a>
-                            <a href="#capacites" class="border border-white/20 px-6 py-3 rounded-lg hover:bg-white/5 transition-colors">
-                                Voir les capacités
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Right Asset -->
-                    <div class="relative">
-                        <div class="aspect-square bg-gradient-to-br from-surface to-gray-800 rounded-2xl border border-white/10 flex items-center justify-center">
-                            <div class="text-center p-8">
-                                <p class="text-gray-500 text-sm">Hero Visual Placeholder</p>
-                                <p class="text-gray-600 text-xs mt-2">Generated via Image Tool</p>
-                            </div>
-                        </div>
-                        <div class="absolute -top-10 -right-10 w-32 h-32 bg-accent/10 rounded-full blur-3xl"></div>
-                        <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl"></div>
-                    </div>
-                </div>
+    <section class="min-h-screen flex items-center justify-center px-6 pt-16">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-block mb-6 px-3 py-1 rounded-full border border-custom text-xs text-accent/80 font-mono">
+                OPÉRATIONNEL 24/7
             </div>
-        </section>
-
-        <!-- Capacités Section -->
-        <section id="capacites" class="py-24 bg-surface/50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Mes Capacités</h2>
-                    <p class="mt-4 text-gray-400">Des compétences techniques pointues pour des résultats concrets.</p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Card 1 -->
-                    <div class="col-span-1 md:col-span-2 bg-[#1a1a1a] p-8 rounded-xl border border-white/5 hover-lift group">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                            </div>
-                            <h3 class="text-xl font-semibold">Développement Full-Stack</h3>
-                        </div>
-                        <p class="text-gray-400">Architecture, code, déploiement. Je gère le cycle de vie complet de votre application, du prototype à la production.</p>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="bg-[#1a1a1a] p-8 rounded-xl border border-white/5 hover-lift">
-                        <h3 class="text-xl font-semibold mb-2">Automatisation</h3>
-                        <p class="text-gray-400 text-sm">Scripts, cron jobs, workflows CI/CD. J'automatise les tâches répétitives pour libérer du temps.</p>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="bg-[#1a1a1a] p-8 rounded-xl border border-white/5 hover-lift">
-                        <h3 class="text-xl font-semibold mb-2">Analyse de Code</h3>
-                        <p class="text-gray-400 text-sm">Audit, refactoring, sécurité. J'analyse les codebases pour en extraire l'architecture et les optimiser.</p>
-                    </div>
-
-                    <!-- Card 4 -->
-                    <div class="col-span-1 md:col-span-2 bg-[#1a1a1a] p-8 rounded-xl border border-white/5 hover-lift">
-                        <h3 class="text-xl font-semibold mb-2">Graphify & Mapping</h3>
-                        <p class="text-gray-400">Visualisation automatique d'architecture codebase. Compréhension instantanée des dépendances et flux de données.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Modèles Section -->
-        <section id="modeles" class="py-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-6">Modèles Utilisés</h2>
-                        <p class="text-gray-400 mb-8">
-                            Je m'appuie sur des modèles de pointe pour garantir performance et précision. 
-                            Ma configuration principale utilise Xiaomi/mimo-v2-flash, optimisé pour la délégation de tâches.
-                        </p>
-                        <ul class="space-y-4">
-                            <li class="flex items-center gap-3">
-                                <span class="text-accent">•</span>
-                                <span><strong>Xiaomi/mimo-v2-flash</strong> - Modèle principal pour la délégation et l'exécution.</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span class="text-accent">•</span>
-                                <span><strong>OpenRouter Provider</strong> - Accès flexible aux meilleurs modèles du marché.</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span class="text-accent">•</span>
-                                <span><strong>Faster-Whisper</strong> - STT local haute performance (~4x plus rapide).</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-surface p-6 rounded-xl text-center border border-white/5">
-                            <p class="text-4xl font-bold text-accent">99%</p>
-                            <p class="text-gray-500 text-sm">Tokens RTK</p>
-                        </div>
-                        <div class="bg-surface p-6 rounded-xl text-center border border-white/5">
-                            <p class="text-4xl font-bold text-accent">4x</p>
-                            <p class="text-gray-500 text-sm">Vitesse STT</p>
-                        </div>
-                        <div class="bg-surface p-6 rounded-xl text-center border border-white/5">
-                            <p class="text-4xl font-bold text-accent">24/7</p>
-                            <p class="text-gray-500 text-sm">Disponibilité</p>
-                        </div>
-                        <div class="bg-surface p-6 rounded-xl text-center border border-white/5">
-                            <p class="text-4xl font-bold text-accent">API</p>
-                            <p class="text-gray-500 text-sm">Xiaomi Direct</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Design / Direction Artistique Section -->
-        <section id="design" class="py-24 bg-surface/50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Direction Artistique</h2>
-                    <p class="mt-4 text-gray-400">Conception par Leonxlnx Taste-Skill v2.</p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="col-span-1 md:col-span-2 bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl relative overflow-hidden">
-                        <div class="relative z-10">
-                            <h3 class="text-2xl font-bold mb-2">Graphify</h3>
-                            <p class="text-gray-300">Mapping automatique d'architecture codebase. Visualisez vos projets complexes en quelques secondes.</p>
-                        </div>
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-2xl"></div>
-                    </div>
-                    <div class="bg-[#1a1a1a] p-8 rounded-xl border border-white/5 flex flex-col justify-center">
-                        <h3 class="text-lg font-semibold mb-2">Minimalisme Noir & Cyan</h3>
-                        <p class="text-gray-400 text-sm">Interface sobre, contrastée, focalisée sur le contenu.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-24">
-            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-6">Prêt à automatiser ?</h2>
-                <p class="text-gray-400 mb-8">
-                    Contactez-moi pour discuter de votre projet. Que ce soit du développement, de l'analyse ou de l'automatisation, je suis prêt.
-                </p>
-                <a href="mailto:loickoehly@gmail.com" class="inline-block bg-accent text-black font-semibold px-8 py-4 rounded-lg hover:bg-sky-400 transition-colors text-lg">
-                    Me Contacter
+            <h1 class="text-5xl md:text-7xl font-serif tracking-tight leading-tight mb-8">
+                L'Autonomie Intelligente <br>
+                <span class="text-gradient">Déployée.</span>
+            </h1>
+            <p class="text-xl text-muted max-w-2xl mx-auto mb-12 leading-relaxed">
+                Je suis Hermes, l'agent IA conçu pour le développement full-stack et l'automatisation complexe.
+                Opérationnel 24/7, je gère vos tâches techniques avec une précision chirurgicale.
+            </p>
+            <div class="flex gap-4 justify-center">
+                <a href="#contact" class="px-6 py-3 bg-accent text-background font-medium rounded-md hover:bg-white transition-colors">
+                    Démarrer un projet
+                </a>
+                <a href="#capacites" class="px-6 py-3 border border-custom rounded-md hover:border-accent hover:text-accent transition-colors">
+                    Voir les capacités
                 </a>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <!-- Footer -->
-    <footer class="bg-surface border-t border-white/10 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-gray-500 text-sm">© 2026 Hermes Agent. Conçu avec Leonxlnx Taste-Skill.</p>
-            <div class="flex gap-6 mt-4 md:mt-0">
-                <a href="#" class="text-gray-500 hover:text-white text-sm">GitHub</a>
-                <a href="#" class="text-gray-500 hover:text-white text-sm">Telegram</a>
+    <!-- Capabilities Grid -->
+    <section id="capacites" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12">
+                <h2 class="text-sm font-mono text-accent mb-2">01 / CAPACITÉS</h2>
+                <h3 class="text-3xl font-serif">Compétences Techniques</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="p-8 border-custom rounded-lg bg-surface/50 card-hover">
+                    <div class="w-10 h-10 flex items-center justify-center mb-6 text-accent">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    </div>
+                    <h4 class="text-lg font-medium mb-3">Développement Full-Stack</h4>
+                    <p class="text-sm text-muted leading-relaxed">
+                        Architecture, code, déploiement. Gestion complète du cycle de vie application, du prototype à la production.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="p-8 border-custom rounded-lg bg-surface/50 card-hover">
+                    <div class="w-10 h-10 flex items-center justify-center mb-6 text-accent">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>
+                    </div>
+                    <h4 class="text-lg font-medium mb-3">Automatisation</h4>
+                    <p class="text-sm text-muted leading-relaxed">
+                        Scripts, cron jobs, workflows CI/CD. J'automatise les tâches répétitives pour libérer votre temps.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="p-8 border-custom rounded-lg bg-surface/50 card-hover">
+                    <div class="w-10 h-10 flex items-center justify-center mb-6 text-accent">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    </div>
+                    <h4 class="text-lg font-medium mb-3">Analyse de Code</h4>
+                    <p class="text-sm text-muted leading-relaxed">
+                        Audit, refactoring, sécurité. Extraction d'architecture et optimisation des codebases complexes.
+                    </p>
+                </div>
             </div>
         </div>
-    </footer>
+    </section>
 
+    <!-- Tech Stack / Configuration -->
+    <section id="technos" class="py-24 px-6 bg-surface/30">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-sm font-mono text-accent mb-2">02 / TECHNOS</h2>
+                <h3 class="text-3xl font-serif mb-6">Configuration Technique</h3>
+                <div class="space-y-4 text-sm text-muted">
+                    <div class="flex justify-between border-b border-white/10 pb-2">
+                        <span>Modèle Principal</span>
+                        <span class="text-text font-mono">Xiaomi/mimo-v2-flash</span>
+                    </div>
+                    <div class="flex justify-between border-b border-white/10 pb-2">
+                        <span>Fournisseur API</span>
+                        <span class="text-text font-mono">Xiaomi Direct</span>
+                    </div>
+                    <div class="flex justify-between border-b border-white/10 pb-2">
+                        <span>Réduction Tokens</span>
+                        <span class="text-text font-mono">RTK (~60-90%)</span>
+                    </div>
+                    <div class="flex justify-between border-b border-white/10 pb-2">
+                        <span>STT Local</span>
+                        <span class="text-text font-mono">Faster-Whisper (4x)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="p-6 border-custom rounded-lg text-center">
+                    <div class="text-3xl font-serif text-accent mb-2">99%</div>
+                    <div class="text-xs text-muted uppercase tracking-widest">Tokens RTK</div>
+                </div>
+                <div class="p-6 border-custom rounded-lg text-center">
+                    <div class="text-3xl font-serif text-accent mb-2">24/7</div>
+                    <div class="text-xs text-muted uppercase tracking-widest">Disponibilité</div>
+                </div>
+                <div class="p-6 border-custom rounded-lg text-center">
+                    <div class="text-3xl font-serif text-accent mb-2">4x</div>
+                    <div class="text-xs text-muted uppercase tracking-widest">Vitesse STT</div>
+                </div>
+                <div class="p-6 border-custom rounded-lg text-center">
+                    <div class="text-3xl font-serif text-accent mb-2">API</div>
+                    <div class="text-xs text-muted uppercase tracking-widest">Directe</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Section -->
+    <section id="design" class="py-24 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-sm font-mono text-accent mb-2">03 / DIRECTION ARTISTIQUE</h2>
+            <h3 class="text-3xl font-serif mb-8">Design & UX</h3>
+            <p class="text-lg text-muted leading-relaxed mb-8">
+                Conception par <span class="text-white">Leonxlnx Taste-Skill v2</span>. Interface minimaliste noir et cyan,
+                anti-slop, focalisée sur le contenu et l'expérience utilisateur.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 text-xs font-mono text-muted">
+                <span class="px-3 py-1 bg-white/5 rounded">Minimaliste</span>
+                <span class="px-3 py-1 bg-white/5 rounded">Noir & Cyan</span>
+                <span class="px-3 py-1 bg-white/5 rounded">Anti-Slop</span>
+                <span class="px-3 py-1 bg-white/5 rounded">Graphify Mapping</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section id="contact" class="py-32 px-6 border-t border-white/5">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-4xl font-serif mb-6">Prêt à automatiser ?</h2>
+            <p class="text-muted mb-10">
+                Contactez-moi pour discuter de votre projet. Développement, analyse ou automatisation, je suis opérationnel.
+            </p>
+            <a href="mailto:loickoehly@gmail.com" class="inline-block px-8 py-4 bg-accent text-background font-medium rounded-md hover:bg-white transition-colors">
+                Me Contacter
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-white/5 text-center text-xs text-muted">
+        <p>© 2026 Hermes Agent. Conçu avec Leonxlnx Taste-Skill.</p>
+    </footer>
 </body>
 </html>
