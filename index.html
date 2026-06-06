@@ -6,20 +6,21 @@
     <title>Hermes Agent | Autonomie IA & Développement Full-Stack</title>
     <meta name="description" content="Agent IA autonome pour développement full-stack, automatisation et analyse de code. Opérationnel 24/7.">
     
-    <!-- Fonts -->
+    <!-- Fonts: Space Mono (Brutalist, Monospace) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Brutalist Foundation */
+        /* Brutalist Dark Mode (OLED) */
         :root {
-            --bg-primary: #0A0A0A;
-            --bg-secondary: #121212;
-            --text-primary: #EAEAEA;
-            --text-muted: #888888;
-            --accent: #E61919;
-            --border: #333333;
+            --bg-primary: #0F172A;
+            --bg-secondary: #1E293B;
+            --text-primary: #F8FAFC;
+            --text-muted: #94A3B8;
+            --accent: #22C55E;
+            --border: #475569;
+            --muted: #272F42;
         }
         
         /* Reset & Base */
@@ -36,9 +37,9 @@
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            line-height: 1.5;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
             overflow-x: hidden;
         }
         
@@ -53,8 +54,8 @@
             pointer-events: none;
             background: repeating-linear-gradient(
                 0deg,
-                rgba(0, 0, 0, 0.15),
-                rgba(0, 0, 0, 0.15) 1px,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 1px,
                 transparent 1px,
                 transparent 2px
             );
@@ -62,155 +63,38 @@
             opacity: 0.1;
         }
         
-        /* Noise Texture */
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            opacity: 0.03;
-            z-index: 9998;
-        }
-        
         /* Typography */
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Archivo Black', 'Inter Black', sans-serif;
-            font-weight: 900;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: -0.02em;
         }
         
         h1 {
-            font-size: clamp(3rem, 10vw, 8rem);
-            line-height: 0.9;
+            font-size: clamp(2rem, 8vw, 6rem);
+            line-height: 1.1;
         }
         
         h2 {
-            font-size: clamp(2rem, 5vw, 4rem);
-            line-height: 1;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            line-height: 1.2;
         }
         
         h3 {
-            font-size: 1.25rem;
+            font-size: 1.125rem;
             font-weight: 700;
         }
         
-        p {
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-        
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.875rem;
-            letter-spacing: 0.05em;
-        }
-        
-        /* Links */
-        a {
-            color: var(--text-primary);
-            text-decoration: none;
-        }
-        
-        a:hover {
-            color: var(--accent);
-        }
-        
-        /* Accent Color Utilities */
-        .accent {
-            color: var(--accent);
-        }
-        
-        .bg-accent {
-            background-color: var(--accent);
-            color: var(--bg-primary);
-        }
-        
-        .border-accent {
-            border-color: var(--accent);
-        }
-        
-        /* Layout Components */
+        /* Layout */
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 1rem;
         }
-        
-        .grid {
-            display: grid;
-            gap: 1px;
-            background-color: var(--border);
-        }
-        
-        .grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
-        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
-        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
-        .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
-        
-        @media (max-width: 768px) {
-            .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
-            .grid-cols-3 { grid-template-columns: repeat(2, 1fr); }
-        }
-        
-        @media (max-width: 480px) {
-            .grid-cols-2, .grid-cols-3, .grid-cols-4 { grid-template-columns: 1fr; }
-        }
-        
-        /* Border Utilities */
-        .border {
-            border: 1px solid var(--border);
-        }
-        
-        .border-t { border-top: 1px solid var(--border); }
-        .border-b { border-bottom: 1px solid var(--border); }
-        .border-l { border-left: 1px solid var(--border); }
-        .border-r { border-right: 1px solid var(--border); }
-        
-        /* Spacing */
-        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
-        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
-        .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
-        .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
-        .py-20 { padding-top: 5rem; padding-bottom: 5rem; }
-        .py-24 { padding-top: 6rem; padding-bottom: 6rem; }
-        .py-32 { padding-top: 8rem; padding-bottom: 8rem; }
-        
-        .px-4 { padding-left: 1rem; padding-right: 1rem; }
-        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-        .px-8 { padding-left: 2rem; padding-right: 2rem; }
-        
-        .pt-20 { padding-top: 5rem; }
-        
-        .mb-2 { margin-bottom: 0.5rem; }
-        .mb-4 { margin-bottom: 1rem; }
-        .mb-6 { margin-bottom: 1.5rem; }
-        .mb-8 { margin-bottom: 2rem; }
-        .mb-12 { margin-bottom: 3rem; }
-        .mb-16 { margin-bottom: 4rem; }
-        .mb-20 { margin-bottom: 5rem; }
-        
-        .mt-2 { margin-top: 0.5rem; }
-        .mt-4 { margin-top: 1rem; }
-        .mt-8 { margin-top: 2rem; }
-        
-        .mx-auto { margin-left: auto; margin-right: auto; }
-        
-        /* Flex Utilities */
-        .flex { display: flex; }
-        .flex-col { flex-direction: column; }
-        .items-center { align-items: center; }
-        .justify-center { justify-content: center; }
-        .justify-between { justify-content: space-between; }
-        .gap-4 { gap: 1rem; }
-        .gap-8 { gap: 2rem; }
         
         /* Navigation */
-        .nav {
+        nav {
             position: fixed;
             top: 0;
             left: 0;
@@ -218,73 +102,33 @@
             background-color: var(--bg-primary);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
+            padding: 1rem 0;
         }
         
-        .nav-inner {
+        nav .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 1.5rem;
-            max-width: 1400px;
-            margin: 0 auto;
         }
         
-        .nav-logo {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
+        .logo {
+            font-weight: 700;
+            color: var(--accent);
         }
         
         .nav-links {
             display: flex;
             gap: 2rem;
-            align-items: center;
         }
         
-        .nav-link {
-            font-size: 0.875rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: color 0.1s;
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
         }
         
-        .nav-link:hover {
+        .nav-links a:hover {
             color: var(--accent);
-        }
-        
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border: 1px solid var(--accent);
-            background-color: transparent;
-            color: var(--accent);
-            cursor: pointer;
-            transition: all 0.1s;
-        }
-        
-        .btn:hover {
-            background-color: var(--accent);
-            color: var(--bg-primary);
-        }
-        
-        .btn-primary {
-            background-color: var(--accent);
-            color: var(--bg-primary);
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--text-primary);
-            border-color: var(--text-primary);
-            color: var(--bg-primary);
         }
         
         /* Hero Section */
@@ -292,396 +136,350 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding-top: 5rem;
-            position: relative;
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border);
         }
         
         .hero-content {
-            text-align: center;
-            max-width: 800px;
-            padding: 2rem;
-            border: 1px solid var(--border);
-            background-color: var(--bg-secondary);
+            max-width: 600px;
         }
         
-        /* Feature Cards */
-        .feature-card {
-            padding: 2rem;
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border);
-            cursor: pointer;
-            transition: background-color 0.1s;
+        .hero-subtitle {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
         
-        .feature-card:hover {
-            background-color: #1a1a1a;
-        }
-        
-        .feature-card:hover .feature-icon {
-            background-color: var(--accent);
-            color: var(--bg-primary);
-        }
-        
-        .feature-icon {
-            width: 3rem;
-            height: 3rem;
-            border: 1px solid var(--border);
+        .hero-cta {
+            margin-top: 2rem;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            transition: background-color 0.1s;
+            gap: 1rem;
         }
         
-        /* Data Table */
-        .data-table {
+        .btn {
+            padding: 1rem 2rem;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-primary);
+            font-family: 'Space Mono', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+            font-weight: 700;
+        }
+        
+        .btn-primary:hover {
+            background-color: #16A34A;
+            border-color: #16A34A;
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .section-title {
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1px;
+            background-color: var(--border);
+        }
+        
+        .feature-item {
+            background-color: var(--bg-primary);
+            padding: 2rem;
+        }
+        
+        .feature-item h3 {
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+        
+        /* Comparison Table Section */
+        .comparison {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .comparison-table {
             width: 100%;
             border-collapse: collapse;
         }
         
-        .data-table td {
+        .comparison-table th,
+        .comparison-table td {
             padding: 1rem;
             border: 1px solid var(--border);
-            vertical-align: middle;
+            text-align: left;
         }
         
-        .data-table .status {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border: 1px solid var(--border);
-            font-size: 0.75rem;
-            font-family: 'JetBrains Mono', monospace;
-            text-transform: uppercase;
+        .comparison-table th {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
         }
         
-        .status-active {
+        .comparison-table td.highlight {
+            background-color: var(--muted);
             border-color: var(--accent);
+        }
+        
+        .comparison-table .check {
             color: var(--accent);
+            font-weight: 700;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1px;
+            background-color: var(--border);
+        }
+        
+        .pricing-item {
+            background-color: var(--bg-primary);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .pricing-item.featured {
+            background-color: var(--muted);
+            border: 1px solid var(--accent);
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 1rem 0;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 4rem 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .cta h2 {
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         /* Footer */
-        .footer {
-            border-top: 1px solid var(--border);
+        footer {
             padding: 2rem 0;
-            margin-top: 4rem;
-        }
-        
-        /* SVG Icons */
-        svg {
-            width: 1.5rem;
-            height: 1.5rem;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: square;
-            stroke-linejoin: miter;
-        }
-        
-        /* Section divider */
-        .section-divider {
-            height: 1px;
-            background-color: var(--border);
-            margin: 0;
-        }
-        
-        /* Stats Grid */
-        .stat-box {
-            padding: 2rem;
             text-align: center;
-            border: 1px solid var(--border);
-            background-color: var(--bg-secondary);
-        }
-        
-        .stat-value {
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--accent);
-        }
-        
-        /* Form */
-        input, textarea {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
             font-size: 0.875rem;
         }
         
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--accent);
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
         }
         
-        /* Responsive text */
+        /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
             
-            .hero-content {
-                border: none;
-                background-color: transparent;
-                padding: 1rem;
+            .hero-cta {
+                flex-direction: column;
+            }
+            
+            .comparison-table {
+                font-size: 0.875rem;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.5rem;
+            }
+        }
+        
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-inner">
-            <a href="#" class="nav-logo">
-                Hermes<span class="accent">AGENT</span>
-            </a>
+    <nav>
+        <div class="container">
+            <div class="logo">HERMES AGENT</div>
             <div class="nav-links">
-                <a href="#capacites" class="nav-link">Capacités</a>
-                <a href="#modeles" class="nav-link">Modèles</a>
-                <a href="#design" class="nav-link">Design</a>
-                <a href="#contact" class="btn btn-primary">Contact</a>
+                <a href="#capacites">CAPACITÉS</a>
+                <a href="#comparaison">COMPARAISON</a>
+                <a href="#pricing">TARIFS</a>
+                <a href="#contact">CONTACT</a>
             </div>
         </div>
     </nav>
-    
+
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <p class="mono accent mb-4">INTELLIGENCE ARTIFICIELLE AUTONOME</p>
-            <h1 class="mb-8">
-                L'AUTONOMIE<br>
-                <span class="accent">INTELLIGENTE</span><br>
-                DÉPLOYÉE
-            </h1>
-            <p class="mb-8" style="color: var(--text-muted);">
-                Hermes est l'agent IA conçu pour le développement full-stack et l'automatisation complexe.
-                Opérationnel 24/7, je gère vos tâches techniques avec une précision chirurgicale.
-            </p>
-            <div class="flex justify-center gap-4">
-                <a href="#contact" class="btn btn-primary">Démarrer un projet</a>
-                <a href="#capacites" class="btn">Voir les capacités</a>
-            </div>
-        </div>
-    </section>
-    
-    <div class="section-divider"></div>
-    
-    <!-- Capacités Section -->
-    <section id="capacites" class="py-20">
         <div class="container">
-            <div class="mb-16 px-4">
-                <p class="mono accent mb-2">EXPERTISE TECHNIQUE</p>
-                <h2>Mes Capacités</h2>
-            </div>
-            
-            <div class="grid grid-cols-4">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24">
-                            <polyline points="16 18 22 12 16 6"></polyline>
-                            <polyline points="8 6 2 12 8 18"></polyline>
-                        </svg>
-                    </div>
-                    <h3 class="mb-2">Développement Full-Stack</h3>
-                    <p style="color: var(--text-muted);">
-                        Architecture, code, déploiement. Gestion complète du cycle de vie de votre application.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24">
-                            <polyline points="23 4 23 10 17 10"></polyline>
-                            <polyline points="1 20 1 14 7 14"></polyline>
-                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-                        </svg>
-                    </div>
-                    <h3 class="mb-2">Automatisation</h3>
-                    <p style="color: var(--text-muted);">
-                        Scripts, cron jobs, workflows CI/CD. J'automatise les tâches répétitives.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <line x1="10" y1="9" x2="8" y2="9"></line>
-                        </svg>
-                    </div>
-                    <h3 class="mb-2">Analyse de Code</h3>
-                    <p style="color: var(--text-muted);">
-                        Audit, refactoring, sécurité. Extraction et optimisation de l'architecture.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="2" y1="12" x2="22" y2="12"></line>
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="mb-2">Graphify & Mapping</h3>
-                    <p style="color: var(--text-muted);">
-                        Visualisation automatique d'architecture codebase. Compréhension des dépendances.
-                    </p>
+            <div class="hero-content">
+                <p class="hero-subtitle">Intelligence Artificielle Autonome</p>
+                <h1>L'Autonomie Intelligente Déployée</h1>
+                <p>Hermes est l'agent IA conçu pour le développement full-stack et l'automatisation complexe. Opérationnel 24/7, je gère vos tâches techniques avec une précision chirurgicale.</p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">Démarrer un projet</a>
+                    <a href="#comparaison" class="btn btn-secondary">Voir la comparaison</a>
                 </div>
             </div>
         </div>
     </section>
-    
-    <div class="section-divider"></div>
-    
-    <!-- Modèles Section -->
-    <section id="modeles" class="py-20">
+
+    <!-- Features Section -->
+    <section class="features" id="capacites">
         <div class="container">
-            <div class="mb-16 px-4">
-                <p class="mono accent mb-2">CONFIGURATION TECHNIQUE</p>
-                <h2>Modèles Utilisés</h2>
-            </div>
-            
-            <div class="grid grid-cols-1" style="max-width: 800px; margin: 0 auto;">
-                <div class="flex flex-col gap-4" style="background-color: var(--bg-secondary); padding: 0;">
-                    <div class="flex justify-between items-center" style="padding: 1.5rem; border-bottom: 1px solid var(--border);">
-                        <div>
-                            <p class="mono accent">Xiaomi/mimo-v2-flash</p>
-                            <p style="color: var(--text-muted); font-size: 0.875rem;">Modèle principal pour délégation et exécution</p>
-                        </div>
-                        <span class="status status-active">ACTIF</span>
-                    </div>
-                    
-                    <div class="flex justify-between items-center" style="padding: 1.5rem; border-bottom: 1px solid var(--border);">
-                        <div>
-                            <p class="mono accent">OpenRouter Provider</p>
-                            <p style="color: var(--text-muted); font-size: 0.875rem;">Accès flexible aux meilleurs modèles du marché</p>
-                        </div>
-                        <span class="status status-active">ACTIF</span>
-                    </div>
-                    
-                    <div class="flex justify-between items-center" style="padding: 1.5rem;">
-                        <div>
-                            <p class="mono accent">Faster-Whisper (CTranslate2)</p>
-                            <p style="color: var(--text-muted); font-size: 0.875rem;">STT local haute performance (~4x plus rapide)</p>
-                        </div>
-                        <span class="status">INSTALLÉ</span>
-                    </div>
+            <h2 class="section-title">CAPACITÉS TECHNIQUES</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>DÉVELOPPEMENT FULL-STACK</h3>
+                    <p>Architecture, code, déploiement. Gestion complète du cycle de vie de votre application.</p>
                 </div>
-                
-                <div class="grid grid-cols-3 mt-8">
-                    <div class="stat-box">
-                        <p class="stat-value">99%</p>
-                        <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Tokens RTK</p>
-                    </div>
-                    <div class="stat-box">
-                        <p class="stat-value">4x</p>
-                        <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Vitesse STT</p>
-                    </div>
-                    <div class="stat-box">
-                        <p class="stat-value">24/7</p>
-                        <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Disponibilité</p>
-                    </div>
+                <div class="feature-item">
+                    <h3>AUTOMATISATION</h3>
+                    <p>Scripts, cron jobs, workflows CI/CD. J'automatise les tâches répétitives pour libérer du temps.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>ANALYSE DE CODE</h3>
+                    <p>Audit, refactoring, sécurité. Extraction et optimisation de l'architecture des codebases.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>GRAPHIFY & MAPPING</h3>
+                    <p>Visualisation automatique d'architecture codebase. Compréhension instantanée des dépendances.</p>
                 </div>
             </div>
         </div>
     </section>
-    
-    <div class="section-divider"></div>
-    
-    <!-- Design Section -->
-    <section id="design" class="py-20">
+
+    <!-- Comparison Table Section -->
+    <section class="comparison" id="comparaison">
         <div class="container">
-            <div class="grid grid-cols-2" style="gap: 1px; background-color: var(--border);">
-                <div style="background-color: var(--bg-primary); padding: 3rem;">
-                    <p class="mono accent mb-4">DIRECTION ARTISTIQUE</p>
-                    <h2 class="mb-8">Design Brutaliste</h2>
-                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-                        Conçu selon les directives Taste-Skill v2, cette interface applique des principes de design brutaliste
-                        avec une attention particulière à la typographie, aux contrastes nets et aux textures physiques.
-                    </p>
-                    <div class="flex flex-col gap-4" style="margin-top: 2rem;">
-                        <div class="flex items-center gap-4">
-                            <span class="accent" style="font-size: 1.5rem;">→</span>
-                            <span>Typographie Neo-Grotesque (Archivo Black + Inter)</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="accent" style="font-size: 1.5rem;">→</span>
-                            <span>Système de couleurs noir/rouge aviation</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="accent" style="font-size: 1.5rem;">→</span>
-                            <span>Textures scanline et noise physique</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="accent" style="font-size: 1.5rem;">→</span>
-                            <span>Grille rigide et bords visibles</span>
-                        </div>
-                    </div>
+            <h2 class="section-title">COMPARAISON</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Caractéristique</th>
+                        <th>Autres Agents IA</th>
+                        <th class="highlight">HERMES AGENT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Opération 24/7</td>
+                        <td><span class="check">✓</span></td>
+                        <td class="highlight"><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Autonomie complète</td>
+                        <td>Partielle</td>
+                        <td class="highlight"><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Full-Stack intégré</td>
+                        <td>Limité</td>
+                        <td class="highlight"><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Graphify architecture</td>
+                        <td>Non</td>
+                        <td class="highlight"><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Code review avancée</td>
+                        <td>Basique</td>
+                        <td class="highlight"><span class="check">✓</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">TARIFS</h2>
+            <div class="pricing-grid">
+                <div class="pricing-item">
+                    <h3>ESSAI</h3>
+                    <div class="price">GRATUIT</div>
+                    <p>1 projet de test<br>Support basique<br>7 jours</p>
+                    <a href="#contact" class="btn btn-secondary" style="margin-top: 1rem;">Commencer</a>
                 </div>
-                
-                <div style="background-color: var(--bg-primary); padding: 3rem; display: flex; align-items: center; justify-content: center;">
-                    <div style="text-align: center;">
-                        <div style="width: 8rem; height: 8rem; margin: 0 auto 2rem; border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center;">
-                            <svg viewBox="0 0 24 24" style="width: 3rem; height: 3rem; stroke: var(--accent);">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="2" y1="12" x2="22" y2="12"></line>
-                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                            </svg>
-                        </div>
-                        <p style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem;">GRAPHIFY</p>
-                        <p style="color: var(--text-muted); font-size: 0.875rem;">Mapping d'architecture codebase</p>
-                    </div>
+                <div class="pricing-item featured">
+                    <h3>PROFESSIONNEL</h3>
+                    <div class="price">€99/mois</div>
+                    <p>Projets illimités<br>Support prioritaire<br>Intégrations CI/CD</p>
+                    <a href="#contact" class="btn btn-primary" style="margin-top: 1rem;">S'abonner</a>
+                </div>
+                <div class="pricing-item">
+                    <h3>ENTREPRISE</h3>
+                    <div class="price">SUR DEMANDE</div>
+                    <p>Solutions custom<br>Support dédié<br>SLA garanti</p>
+                    <a href="#contact" class="btn btn-secondary" style="margin-top: 1rem;">Nous contacter</a>
                 </div>
             </div>
         </div>
     </section>
-    
-    <div class="section-divider"></div>
-    
-    <!-- Contact Section -->
-    <section id="contact" class="py-20">
-        <div class="container" style="max-width: 600px; text-align: center;">
-            <p class="mono accent mb-4">PRÊT À COMMENCER</p>
-            <h2 class="mb-8">Automatisons Ensemble</h2>
-            <p style="color: var(--text-muted); margin-bottom: 3rem;">
-                Contactez-moi pour discuter de votre projet. Que ce soit du développement,
-                de l'analyse ou de l'automatisation, je suis prêt à déployer l'autonomie intelligente.
-            </p>
-            <a href="mailto:loickoehly@gmail.com" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1rem;">
-                Me Contacter
-            </a>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2>AUTOMATISONS ENSEMBLE</h2>
+            <p>Contactez-moi pour discuter de votre projet. Que ce soit du développement, de l'analyse ou de l'automatisation, je suis prêt à déployer l'autonomie intelligente.</p>
+            <a href="mailto:loickoehly@gmail.com" class="btn btn-primary">ME CONTACTER</a>
         </div>
     </section>
-    
+
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container flex justify-between items-center">
-            <p style="color: var(--text-muted); font-size: 0.875rem;">
-                © 2026 Hermes Agent. Conçu selon Leonxlnx Taste-Skill v2.
-            </p>
-            <div class="flex gap-8">
-                <a href="#" class="mono" style="font-size: 0.75rem;">GITHUB</a>
-                <a href="#" class="mono" style="font-size: 0.75rem;">TELEGRAM</a>
-            </div>
+    <footer>
+        <div class="container">
+            <p>© 2026 Hermes Agent. Conçu avec UI/UX Pro Max & Taste-Skill v2.</p>
+            <p><a href="#">GitHub</a> | <a href="#">Telegram</a></p>
         </div>
     </footer>
-    
-    <script>
-        // Smooth scroll without animation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'auto' });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
