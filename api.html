@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference | HERMES AGENT</title>
+    <meta name="description" content="Référence complète de l'API HERMES AGENT - Endpoints, authentification, exemples d'utilisation.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="styles/shared.css">
+    
+    <!-- Page-specific Styles -->
+    <style>
+        @layer components {
+            /* Page Header */
+            .page-header {
+                padding: 10rem 0 4rem;
+                background-color: var(--bg-primary);
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .page-header h1 {
+                margin-bottom: 1rem;
+            }
+            
+            .page-header p {
+                color: var(--text-secondary);
+                max-width: 600px;
+            }
+            
+            /* API Layout */
+            .api-layout {
+                display: grid;
+                grid-template-columns: 250px 1fr;
+                gap: 4rem;
+                padding: 4rem 0;
+                min-height: 70vh;
+            }
+            
+            /* Sidebar */
+            .api-sidebar {
+                position: sticky;
+                top: 100px;
+                height: fit-content;
+            }
+            
+            .api-nav {
+                background-color: var(--bg-secondary);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-md);
+                padding: 1.5rem;
+            }
+            
+            .api-nav-title {
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--text-muted);
+                margin-bottom: 1rem;
+                font-weight: 600;
+            }
+            
+            .api-nav-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .api-nav-link {
+                padding: 0.5rem 0.75rem;
+                color: var(--text-secondary);
+                font-size: 0.9375rem;
+                border-radius: var(--radius-sm);
+                transition: all 0.2s;
+            }
+            
+            .api-nav-link:hover {
+                background-color: var(--bg-tertiary);
+                color: var(--text-primary);
+            }
+            
+            .api-nav-link.active {
+                background-color: var(--accent-dim);
+                color: var(--accent);
+            }
+            
+            /* Content */
+            .api-content {
+                max-width: 800px;
+            }
+            
+            .api-section {
+                margin-bottom: 4rem;
+                scroll-margin-top: 100px;
+            }
+            
+            .api-section h2 {
+                color: var(--text-primary);
+                margin-bottom: 1rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .api-section h3 {
+                color: var(--text-primary);
+                margin-top: 2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .api-section p {
+                margin-bottom: 1rem;
+                line-height: 1.7;
+            }
+            
+            /* Endpoint cards */
+            .endpoint-card {
+                background-color: var(--bg-secondary);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-md);
+                margin: 1.5rem 0;
+                overflow: hidden;
+            }
+            
+            .endpoint-header {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 1rem 1.5rem;
+                background-color: var(--bg-tertiary);
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .endpoint-method {
+                font-family: 'Space Mono', monospace;
+                font-size: 0.75rem;
+                font-weight: 700;
+                padding: 0.25rem 0.5rem;
+                border-radius: var(--radius-sm);
+                text-transform: uppercase;
+            }
+            
+            .method-get { background-color: var(--accent); color: white; }
+            .method-post { background-color: oklch(52% 0.17 145); color: white; }
+            .method-put { background-color: oklch(58% 0.18 65); color: white; }
+            .method-delete { background-color: oklch(50% 0.22 25); color: white; }
+            
+            .endpoint-path {
+                font-family: 'Space Mono', monospace;
+                color: var(--text-primary);
+                font-size: 0.9375rem;
+            }
+            
+            .endpoint-description {
+                padding: 1.5rem;
+                color: var(--text-secondary);
+            }
+            
+            .endpoint-params {
+                padding: 1rem 1.5rem;
+                background-color: var(--bg-primary);
+                border-top: 1px solid var(--border);
+            }
+            
+            .param-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            
+            .param-table th,
+            .param-table td {
+                padding: 0.5rem;
+                text-align: left;
+                font-size: 0.875rem;
+            }
+            
+            .param-table th {
+                color: var(--text-muted);
+                font-weight: 500;
+            }
+            
+            .param-table td {
+                color: var(--text-secondary);
+            }
+            
+            .param-name {
+                font-family: 'Space Mono', monospace;
+                color: var(--accent);
+            }
+            
+            .param-type {
+                font-family: 'Space Mono', monospace;
+                font-size: 0.8em;
+                color: var(--text-muted);
+            }
+            
+            /* Code examples */
+            .code-block {
+                background-color: var(--bg-tertiary);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-md);
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+                overflow-x: auto;
+            }
+            
+            .code-block code {
+                font-family: 'Space Mono', monospace;
+                font-size: 0.875rem;
+                color: var(--text-primary);
+            }
+            
+            /* Response codes */
+            .response-codes {
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+                margin: 1rem 0;
+            }
+            
+            .response-code {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-family: 'Space Mono', monospace;
+                font-size: 0.875rem;
+            }
+            
+            .response-code .status {
+                padding: 0.25rem 0.5rem;
+                border-radius: var(--radius-sm);
+                font-weight: 600;
+            }
+            
+            .status-200 { background-color: oklch(52% 0.17 145); color: white; }
+            .status-400 { background-color: oklch(58% 0.18 65); color: white; }
+            .status-401 { background-color: oklch(50% 0.22 25); color: white; }
+            .status-500 { background-color: oklch(45% 0.18 25); color: white; }
+            
+            /* Responsive */
+            @media (max-width: 768px) {
+                .api-layout {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                }
+                
+                .api-sidebar {
+                    position: static;
+                }
+                
+                .api-nav {
+                    display: flex;
+                    gap: 0.5rem;
+                    overflow-x: auto;
+                    padding: 1rem;
+                }
+                
+                .api-nav-list {
+                    flex-direction: row;
+                    gap: 0;
+                }
+                
+                .api-nav-link {
+                    white-space: nowrap;
+                }
+                
+                .endpoint-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 0.5rem;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress -->
+    <div id="scroll-progress-back"></div>
+    <div id="scroll-progress"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                HERMES<span>AGENT</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="docs.html">Documentation</a>
+                <a href="api.html" class="active">API</a>
+                <a href="blog.html">Blog</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Référence API</h1>
+            <p>Documentation complète de l'API HERMES AGENT - Endpoints, authentification, et exemples d'utilisation.</p>
+        </div>
+    </header>
+    
+    <!-- API Layout -->
+    <main class="container">
+        <div class="api-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="api-sidebar">
+                <nav class="api-nav">
+                    <p class="api-nav-title">Navigation</p>
+                    <div class="api-nav-list">
+                        <a href="#auth" class="api-nav-link active">Authentification</a>
+                        <a href="#conversations" class="api-nav-link">Conversations</a>
+                        <a href="#sessions" class="api-nav-link">Sessions</a>
+                        <a href="#tools" class="api-nav-link">Outils</a>
+                        <a href="#webhooks" class="api-nav-link">Webhooks</a>
+                    </div>
+                </nav>
+            </aside>
+            
+            <!-- Content -->
+            <article class="api-content">
+                <!-- Authentication Section -->
+                <section id="auth" class="api-section">
+                    <h2>Authentification</h2>
+                    <p>L'API HERMES AGENT utilise une authentification par clé API. Incluez votre clé dans l'en-tête <code>Authorization</code> de chaque requête.</p>
+                    
+                    <div class="code-block">
+                        <code>Authorization: Bearer YOUR_API_KEY</code>
+                    </div>
+                    
+                    <h3>Obtenir une clé API</h3>
+                    <p>Vous pouvez générer une clé API depuis votre tableau de bord :</p>
+                    <ol>
+                        <li>Connectez-vous à votre compte HERMES AGENT</li>
+                        <li>Accédez aux paramètres API</li>
+                        <li>Générez une nouvelle clé</li>
+                        <li>Stockez-la de manière sécurisée</li>
+                    </ol>
+                    
+                    <div class="info-box">
+                        <p><strong>Sécurité :</strong> Ne jamais exposer votre clé API publiquement. Utilisez les variables d'environnement.</p>
+                    </div>
+                </section>
+                
+                <!-- Conversations Section -->
+                <section id="conversations" class="api-section">
+                    <h2>Conversations</h2>
+                    <p>Créez et gérez des conversations avec HERMES AGENT.</p>
+                    
+                    <h3>Créer une conversation</h3>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="endpoint-method method-post">POST</span>
+                            <span class="endpoint-path">/api/v1/conversations</span>
+                        </div>
+                        <div class="endpoint-description">
+                            <p>Crée une nouvelle conversation avec HERMES AGENT.</p>
+                            <div class="response-codes">
+                                <div class="response-code">
+                                    <span class="status status-200">200</span>
+                                    <span>Succès</span>
+                                </div>
+                                <div class="response-code">
+                                    <span class="status status-400">400</span>
+                                    <span>Requête invalide</span>
+                                </div>
+                                <div class="response-code">
+                                    <span class="status status-401">401</span>
+                                    <span>Non autorisé</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="endpoint-params">
+                            <table class="param-table">
+                                <thead>
+                                    <tr>
+                                        <th>Paramètre</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="param-name">model</span></td>
+                                        <td><span class="param-type">string</span></td>
+                                        <td>Modèle IA à utiliser (ex: "anthropic/claude-opus-4.6")</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="param-name">instructions</span></td>
+                                        <td><span class="param-type">string</span></td>
+                                        <td>Instructions système pour l'agent (optionnel)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <h3>Envoyer un message</h3>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="endpoint-method method-post">POST</span>
+                            <span class="endpoint-path">/api/v1/conversations/{conversation_id}/messages</span>
+                        </div>
+                        <div class="endpoint-description">
+                            <p>Envoie un message dans une conversation existante.</p>
+                        </div>
+                        <div class="endpoint-params">
+                            <table class="param-table">
+                                <thead>
+                                    <tr>
+                                        <th>Paramètre</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="param-name">content</span></td>
+                                        <td><span class="param-type">string</span></td>
+                                        <td>Contenu du message</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="param-name">role</span></td>
+                                        <td><span class="param-type">string</span></td>
+                                        <td>"user" ou "assistant" (défaut: "user")</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <h3>Exemple cURL</h3>
+                    <div class="code-block">
+                        <code>curl -X POST https://api.hermes-agent.com/api/v1/conversations \<br>
+  -H "Authorization: Bearer YOUR_API_KEY" \<br>
+  -H "Content-Type: application/json" \<br>
+  -d '{"model": "anthropic/claude-opus-4.6"}'</code>
+                    </div>
+                </section>
+                
+                <!-- Sessions Section -->
+                <section id="sessions" class="api-section">
+                    <h2>Sessions</h2>
+                    <p>Gérez les sessions de conversation pour persister l'historique.</p>
+                    
+                    <h3>Lister les sessions</h3>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="endpoint-method method-get">GET</span>
+                            <span class="endpoint-path">/api/v1/sessions</span>
+                        </div>
+                        <div class="endpoint-description">
+                            <p>Récupère la liste de toutes les sessions actives.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Récupérer une session</h3>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="endpoint-method method-get">GET</span>
+                            <span class="endpoint-path">/api/v1/sessions/{session_id}</span>
+                        </div>
+                        <div class="endpoint-description">
+                            <p>Récupère les détails d'une session spécifique.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Supprimer une session</h3>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="endpoint-method method-delete">DELETE</span>
+                            <span class="endpoint-path">/api/v1/sessions/{session_id}</span>
+                        </div>
+                        <div class="endpoint-description">
+                            <p>Supprime définitivement une session et son historique.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Tools Section -->
+                <section id="tools" class="api-section">
+                    <h2>Outils</h2>
+                    <p>Gérez et utilisez les outils disponibles dans HERMES AGENT.</p>
+                    
+                    <h3>Lister les outils</h3>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="endpoint-method method-get">GET</span>
+                            <span class="endpoint-path">/api/v1/tools</span>
+                        </div>
+                        <div class="endpoint-description">
+                            <p>Récupère la liste des outils disponibles et leurs statuts.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Activer/Désactiver un outil</h3>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="endpoint-method method-put">PUT</span>
+                            <span class="endpoint-path">/api/v1/tools/{tool_name}</span>
+                        </div>
+                        <div class="endpoint-description">
+                            <p>Active ou désactive un outil spécifique.</p>
+                        </div>
+                        <div class="endpoint-params">
+                            <table class="param-table">
+                                <thead>
+                                    <tr>
+                                        <th>Paramètre</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="param-name">enabled</span></td>
+                                        <td><span class="param-type">boolean</span></td>
+                                        <td>État d'activation de l'outil</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Webhooks Section -->
+                <section id="webhooks" class="api-section">
+                    <h2>Webhooks</h2>
+                    <p>Configurez des webhooks pour recevoir des notifications en temps réel.</p>
+                    
+                    <h3>Créer un webhook</h3>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="endpoint-method method-post">POST</span>
+                            <span class="endpoint-path">/api/v1/webhooks</span>
+                        </div>
+                        <div class="endpoint-description">
+                            <p>Enregistre un nouveau webhook pour recevoir des notifications.</p>
+                        </div>
+                        <div class="endpoint-params">
+                            <table class="param-table">
+                                <thead>
+                                    <tr>
+                                        <th>Paramètre</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="param-name">url</span></td>
+                                        <td><span class="param-type">string</span></td>
+                                        <td>URL du endpoint webhook</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="param-name">events</span></td>
+                                        <td><span class="param-type">array</span></td>
+                                        <td>Types d'événements à écouter</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <h3>Événements disponibles</h3>
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Événement</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>conversation.created</code></td>
+                                <td>Nouvelle conversation créée</td>
+                            </tr>
+                            <tr>
+                                <td><code>message.received</code></td>
+                                <td>Message reçu par l'agent</td>
+                            </tr>
+                            <tr>
+                                <td><code>tool.called</code></td>
+                                <td>Un outil a été invoqué</td>
+                            </tr>
+                            <tr>
+                                <td><code>session.completed</code></td>
+                                <td>Session terminée</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </article>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 HERMES AGENT. Tous droits réservés.</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="index.html">Accueil</a> • 
+                <a href="docs.html">Documentation</a> • 
+                <a href="api.html">API</a> • 
+                <a href="blog.html">Blog</a>
+            </p>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" aria-label="Remonter">↑</button>
+    
+    <!-- Scripts -->
+    <script>
+        // Scroll to top button
+        const scrollBtn = document.querySelector('.scroll-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Active nav link based on scroll
+        const sections = document.querySelectorAll('.api-section');
+        const navLinks = document.querySelectorAll('.api-nav-link');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // View Transitions API
+        if ('startViewTransition' in document) {
+            document.querySelectorAll('a[href$=".html"]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (!link.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const href = link.getAttribute('href');
+                        
+                        document.startViewTransition(() => {
+                            window.location.href = href;
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

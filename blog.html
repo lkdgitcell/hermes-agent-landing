@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | HERMES AGENT</title>
+    <meta name="description" content="Actualités, articles et tutoriels sur HERMES AGENT - L'IA autonome pour le développement.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="styles/shared.css">
+    
+    <!-- Page-specific Styles -->
+    <style>
+        @layer components {
+            /* Page Header */
+            .page-header {
+                padding: 10rem 0 4rem;
+                background-color: var(--bg-primary);
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .page-header h1 {
+                margin-bottom: 1rem;
+            }
+            
+            .page-header p {
+                color: var(--text-secondary);
+                max-width: 600px;
+            }
+            
+            /* Blog Layout */
+            .blog-layout {
+                padding: 4rem 0;
+            }
+            
+            /* Featured Article */
+            .featured-article {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+                padding: 3rem;
+                background-color: var(--bg-secondary);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                margin-bottom: 4rem;
+                transition: all 0.3s ease;
+            }
+            
+            .featured-article:hover {
+                border-color: var(--accent);
+                transform: translateY(-4px);
+                box-shadow: var(--shadow-lg);
+            }
+            
+            .featured-image {
+                aspect-ratio: 16/9;
+                background: linear-gradient(135deg, var(--accent) 0%, oklch(58% 0.19 220) 100%);
+                border-radius: var(--radius-md);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 3rem;
+            }
+            
+            .featured-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            .featured-badge {
+                display: inline-block;
+                padding: 0.25rem 0.75rem;
+                background-color: var(--accent);
+                color: white;
+                font-size: 0.75rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                border-radius: var(--radius-sm);
+                margin-bottom: 1rem;
+                width: fit-content;
+            }
+            
+            .featured-content h2 {
+                margin-bottom: 1rem;
+                color: var(--text-primary);
+            }
+            
+            .featured-content p {
+                color: var(--text-secondary);
+                margin-bottom: 1.5rem;
+                line-height: 1.7;
+            }
+            
+            .featured-meta {
+                display: flex;
+                gap: 1rem;
+                color: var(--text-muted);
+                font-size: 0.875rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            /* Articles Grid */
+            .articles-section h2 {
+                margin-bottom: 2rem;
+                color: var(--text-primary);
+            }
+            
+            .articles-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 2rem;
+            }
+            
+            .article-card {
+                background-color: var(--bg-secondary);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-md);
+                overflow: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .article-card:hover {
+                border-color: var(--accent);
+                transform: translateY(-4px);
+                box-shadow: var(--shadow-lg);
+            }
+            
+            .article-image {
+                aspect-ratio: 16/10;
+                background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-quaternary) 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--text-muted);
+                font-size: 2rem;
+            }
+            
+            .article-content {
+                padding: 1.5rem;
+            }
+            
+            .article-category {
+                display: inline-block;
+                padding: 0.25rem 0.5rem;
+                background-color: var(--accent-dim);
+                color: var(--accent);
+                font-size: 0.75rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                border-radius: var(--radius-sm);
+                margin-bottom: 0.75rem;
+            }
+            
+            .article-content h3 {
+                color: var(--text-primary);
+                margin-bottom: 0.75rem;
+                font-size: 1.25rem;
+            }
+            
+            .article-content p {
+                color: var(--text-secondary);
+                font-size: 0.9375rem;
+                line-height: 1.6;
+                margin-bottom: 1rem;
+            }
+            
+            .article-meta {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                color: var(--text-muted);
+                font-size: 0.8125rem;
+            }
+            
+            .read-more {
+                color: var(--accent);
+                font-weight: 500;
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+            
+            .read-more:hover {
+                color: var(--text-primary);
+            }
+            
+            /* Categories */
+            .categories-section {
+                padding: 4rem 0;
+                background-color: var(--bg-secondary);
+                border-top: 1px solid var(--border);
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .categories-section h2 {
+                margin-bottom: 2rem;
+                text-align: center;
+                color: var(--text-primary);
+            }
+            
+            .categories-list {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+            
+            .category-tag {
+                padding: 0.5rem 1rem;
+                background-color: var(--bg-tertiary);
+                color: var(--text-secondary);
+                border-radius: var(--radius-sm);
+                font-size: 0.875rem;
+                text-decoration: none;
+                transition: all 0.2s;
+            }
+            
+            .category-tag:hover,
+            .category-tag.active {
+                background-color: var(--accent);
+                color: white;
+            }
+            
+            /* Newsletter */
+            .newsletter-section {
+                padding: 6rem 0;
+                text-align: center;
+                background-color: var(--bg-primary);
+            }
+            
+            .newsletter-section h2 {
+                margin-bottom: 1rem;
+                color: var(--text-primary);
+            }
+            
+            .newsletter-section p {
+                color: var(--text-secondary);
+                margin-bottom: 2rem;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .newsletter-form {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .newsletter-input {
+                padding: 0.875rem 1.25rem;
+                background-color: var(--bg-secondary);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-sm);
+                color: var(--text-primary);
+                font-size: 1rem;
+                min-width: 300px;
+                transition: border-color 0.2s;
+            }
+            
+            .newsletter-input:focus {
+                outline: none;
+                border-color: var(--accent);
+            }
+            
+            /* Responsive */
+            @media (max-width: 768px) {
+                .featured-article {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                    padding: 1.5rem;
+                }
+                
+                .featured-image {
+                    aspect-ratio: 16/9;
+                    max-height: 200px;
+                }
+                
+                .articles-grid {
+                    grid-template-columns: 1fr;
+                }
+                
+                .newsletter-form {
+                    flex-direction: column;
+                    align-items: center;
+                }
+                
+                .newsletter-input {
+                    min-width: auto;
+                    width: 100%;
+                    max-width: 300px;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress -->
+    <div id="scroll-progress-back"></div>
+    <div id="scroll-progress"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                HERMES<span>AGENT</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="docs.html">Documentation</a>
+                <a href="api.html">API</a>
+                <a href="blog.html" class="active">Blog</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Blog</h1>
+            <p>Actualités, articles et tutoriels sur HERMES AGENT - L'IA autonome pour le développement.</p>
+        </div>
+    </header>
+    
+    <!-- Blog Content -->
+    <main class="blog-layout">
+        <div class="container">
+            <!-- Featured Article -->
+            <article class="featured-article">
+                <div class="featured-image">
+                    🚀
+                </div>
+                <div class="featured-content">
+                    <span class="featured-badge">À la une</span>
+                    <h2>HERMES AGENT 2.0 : La nouvelle ère de l'IA autonome</h2>
+                    <p>Découvrez la nouvelle version majeure de HERMES AGENT avec des fonctionnalités révolutionnaires, des performances améliorées et une interface entièrement repensée.</p>
+                    <div class="featured-meta">
+                        <span>📅 15 janvier 2024</span>
+                        <span>⏱️ 8 min de lecture</span>
+                    </div>
+                    <a href="#" class="btn btn-primary">Lire l'article</a>
+                </div>
+            </article>
+            
+            <!-- Articles Grid -->
+            <section class="articles-section">
+                <h2>Derniers articles</h2>
+                <div class="articles-grid">
+                    <!-- Article 1 -->
+                    <article class="article-card">
+                        <div class="article-image">🐍</div>
+                        <div class="article-content">
+                            <span class="article-category">Tutoriel</span>
+                            <h3>Créer une API REST avec HERMES AGENT</h3>
+                            <p>Guide étape par étape pour développer une API RESTful complète avec FastAPI et HERMES AGENT.</p>
+                            <div class="article-meta">
+                                <span>📅 10 janvier 2024</span>
+                                <a href="#" class="read-more">Lire →</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 2 -->
+                    <article class="article-card">
+                        <div class="article-image">🤖</div>
+                        <div class="article-content">
+                            <span class="article-category">Technique</span>
+                            <h3>Architecture des outils HERMES AGENT</h3>
+                            <p>Comprendre le fonctionnement interne du système d'outils et comment créer vos propres extensions.</p>
+                            <div class="article-meta">
+                                <span>📅 8 janvier 2024</span>
+                                <a href="#" class="read-more">Lire →</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 3 -->
+                    <article class="article-card">
+                        <div class="article-image">⚡</div>
+                        <div class="article-content">
+                            <span class="article-category">Performance</span>
+                            <h3>Optimisation des performances avec le cache</h3>
+                            <p>Techniques pour améliorer les performances de HERMES AGENT grâce au cache intelligent des prompts.</p>
+                            <div class="article-meta">
+                                <span>📅 5 janvier 2024</span>
+                                <a href="#" class="read-more">Lire →</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 4 -->
+                    <article class="article-card">
+                        <div class="article-image">🌐</div>
+                        <div class="article-content">
+                            <span class="article-category">Intégration</span>
+                            <h3>Intégration HERMES AGENT + Telegram</h3>
+                            <p>Comment connecter HERMES AGENT à Telegram pour un assistant IA dans votre poche.</p>
+                            <div class="article-meta">
+                                <span>📅 3 janvier 2024</span>
+                                <a href="#" class="read-more">Lire →</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 5 -->
+                    <article class="article-card">
+                        <div class="article-image">🔒</div>
+                        <div class="article-content">
+                            <span class="article-category">Sécurité</span>
+                            <h3>Sécurité et confidentialité des données</h3>
+                            <p>Comment HERMES AGENT protège vos données et respecte votre vie privée.</p>
+                            <div class="article-meta">
+                                <span>📅 1 janvier 2024</span>
+                                <a href="#" class="read-more">Lire →</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 6 -->
+                    <article class="article-card">
+                        <div class="article-image">📦</div>
+                        <div class="article-content">
+                            <span class="article-category">Déploiement</span>
+                            <h3>Déployer HERMES AGENT avec Docker</h3>
+                            <p>Guide complet pour déployer HERMES AGENT en production avec Docker et Docker Compose.</p>
+                            <div class="article-meta">
+                                <span>📅 28 décembre 2023</span>
+                                <a href="#" class="read-more">Lire →</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="container">
+            <h2>Explorer par catégorie</h2>
+            <div class="categories-list">
+                <a href="#" class="category-tag active">Tous</a>
+                <a href="#" class="category-tag">Tutoriel</a>
+                <a href="#" class="category-tag">Technique</a>
+                <a href="#" class="category-tag">Performance</a>
+                <a href="#" class="category-tag">Intégration</a>
+                <a href="#" class="category-tag">Sécurité</a>
+                <a href="#" class="category-tag">Déploiement</a>
+                <a href="#" class="category-tag">Actualités</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <h2>Restez informé</h2>
+            <p>Abonnez-vous à notre newsletter pour recevoir les dernières actualités et astuces sur HERMES AGENT.</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Merci pour votre inscription !');">
+                <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
+                <button type="submit" class="btn btn-primary">S'abonner</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 HERMES AGENT. Tous droits réservés.</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="index.html">Accueil</a> • 
+                <a href="docs.html">Documentation</a> • 
+                <a href="api.html">API</a> • 
+                <a href="blog.html">Blog</a>
+            </p>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" aria-label="Remonter">↑</button>
+    
+    <!-- Scripts -->
+    <script>
+        // Scroll to top button
+        const scrollBtn = document.querySelector('.scroll-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Category filter
+        const categoryTags = document.querySelectorAll('.category-tag');
+        
+        categoryTags.forEach(tag => {
+            tag.addEventListener('click', (e) => {
+                e.preventDefault();
+                categoryTags.forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+            });
+        });
+        
+        // View Transitions API
+        if ('startViewTransition' in document) {
+            document.querySelectorAll('a[href$=".html"]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (!link.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const href = link.getAttribute('href');
+                        
+                        document.startViewTransition(() => {
+                            window.location.href = href;
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | HERMES AGENT</title>
+    <meta name="description" content="Guide complet d'utilisation de HERMES AGENT - Installation, configuration, et exemples d'utilisation.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="styles/shared.css">
+    
+    <!-- Page-specific Styles -->
+    <style>
+        @layer components {
+            /* Page Header */
+            .page-header {
+                padding: 10rem 0 4rem;
+                background-color: var(--bg-primary);
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .page-header h1 {
+                margin-bottom: 1rem;
+            }
+            
+            .page-header p {
+                color: var(--text-secondary);
+                max-width: 600px;
+            }
+            
+            /* Documentation Layout */
+            .docs-layout {
+                display: grid;
+                grid-template-columns: 250px 1fr;
+                gap: 4rem;
+                padding: 4rem 0;
+                min-height: 70vh;
+            }
+            
+            /* Sidebar */
+            .docs-sidebar {
+                position: sticky;
+                top: 100px;
+                height: fit-content;
+            }
+            
+            .docs-nav {
+                background-color: var(--bg-secondary);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-md);
+                padding: 1.5rem;
+            }
+            
+            .docs-nav-title {
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--text-muted);
+                margin-bottom: 1rem;
+                font-weight: 600;
+            }
+            
+            .docs-nav-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .docs-nav-link {
+                padding: 0.5rem 0.75rem;
+                color: var(--text-secondary);
+                font-size: 0.9375rem;
+                border-radius: var(--radius-sm);
+                transition: all 0.2s;
+            }
+            
+            .docs-nav-link:hover {
+                background-color: var(--bg-tertiary);
+                color: var(--text-primary);
+            }
+            
+            .docs-nav-link.active {
+                background-color: var(--accent-dim);
+                color: var(--accent);
+            }
+            
+            /* Content */
+            .docs-content {
+                max-width: 800px;
+            }
+            
+            .doc-section {
+                margin-bottom: 4rem;
+                scroll-margin-top: 100px;
+            }
+            
+            .doc-section h2 {
+                color: var(--text-primary);
+                margin-bottom: 1rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .doc-section h3 {
+                color: var(--text-primary);
+                margin-top: 2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .doc-section p {
+                margin-bottom: 1rem;
+                line-height: 1.7;
+            }
+            
+            .doc-section ul {
+                margin-bottom: 1rem;
+                padding-left: 1.5rem;
+            }
+            
+            .doc-section li {
+                margin-bottom: 0.5rem;
+                color: var(--text-secondary);
+            }
+            
+            /* Code examples */
+            .code-block {
+                background-color: var(--bg-tertiary);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-md);
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+                overflow-x: auto;
+            }
+            
+            .code-block code {
+                font-family: 'Space Mono', monospace;
+                font-size: 0.875rem;
+                color: var(--text-primary);
+            }
+            
+            /* Info boxes */
+            .info-box {
+                padding: 1.25rem;
+                border-radius: var(--radius-md);
+                margin: 1.5rem 0;
+                border-left: 4px solid var(--accent);
+                background-color: var(--bg-secondary);
+            }
+            
+            .info-box p {
+                margin-bottom: 0;
+                color: var(--text-secondary);
+            }
+            
+            .info-box strong {
+                color: var(--accent);
+            }
+            
+            /* Table */
+            .doc-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 1.5rem 0;
+                background-color: var(--bg-secondary);
+                border-radius: var(--radius-md);
+                overflow: hidden;
+            }
+            
+            .doc-table th,
+            .doc-table td {
+                padding: 1rem;
+                text-align: left;
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .doc-table th {
+                background-color: var(--bg-tertiary);
+                color: var(--text-primary);
+                font-weight: 600;
+                font-size: 0.875rem;
+            }
+            
+            .doc-table td {
+                color: var(--text-secondary);
+            }
+            
+            /* Responsive */
+            @media (max-width: 768px) {
+                .docs-layout {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                }
+                
+                .docs-sidebar {
+                    position: static;
+                }
+                
+                .docs-nav {
+                    display: flex;
+                    gap: 0.5rem;
+                    overflow-x: auto;
+                    padding: 1rem;
+                }
+                
+                .docs-nav-list {
+                    flex-direction: row;
+                    gap: 0;
+                }
+                
+                .docs-nav-link {
+                    white-space: nowrap;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress -->
+    <div id="scroll-progress-back"></div>
+    <div id="scroll-progress"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                HERMES<span>AGENT</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="docs.html" class="active">Documentation</a>
+                <a href="api.html">API</a>
+                <a href="blog.html">Blog</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Documentation</h1>
+            <p>Guide complet d'utilisation de HERMES AGENT - Installation, configuration, et exemples d'utilisation.</p>
+        </div>
+    </header>
+    
+    <!-- Documentation Layout -->
+    <main class="container">
+        <div class="docs-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="docs-sidebar">
+                <nav class="docs-nav">
+                    <p class="docs-nav-title">Navigation</p>
+                    <div class="docs-nav-list">
+                        <a href="#installation" class="docs-nav-link active">Installation</a>
+                        <a href="#configuration" class="docs-nav-link">Configuration</a>
+                        <a href="#utilisation" class="docs-nav-link">Utilisation</a>
+                        <a href="#commandes" class="docs-nav-link">Commandes</a>
+                        <a href="#outils" class="docs-nav-link">Outils</a>
+                        <a href="#integration" class="docs-nav-link">Intégration</a>
+                    </div>
+                </nav>
+            </aside>
+            
+            <!-- Content -->
+            <article class="docs-content">
+                <!-- Installation Section -->
+                <section id="installation" class="doc-section">
+                    <h2>Installation</h2>
+                    <p>HERMES AGENT peut être installé de plusieurs manières selon votre environnement et vos besoins.</p>
+                    
+                    <h3>Via pip (Python)</h3>
+                    <p>Installation la plus simple via le package Python officiel :</p>
+                    <div class="code-block">
+                        <code>pip install hermes-agent</code>
+                    </div>
+                    
+                    <h3>Via GitHub</h3>
+                    <p>Cloner le dépôt pour une installation manuelle :</p>
+                    <div class="code-block">
+                        <code>git clone https://github.com/your-org/hermes-agent.git<br>
+cd hermes-agent<br>
+pip install -e .</code>
+                    </div>
+                    
+                    <h3>Via Docker</h3>
+                    <p>Déploiement facile avec Docker :</p>
+                    <div class="code-block">
+                        <code>docker pull hermes/agent:latest<br>
+docker run -d --name hermes-agent -p 8000:8000 hermes/agent:latest</code>
+                    </div>
+                    
+                    <div class="info-box">
+                        <p><strong>Note :</strong> Assurez-vous d'avoir Python 3.11+ et pip installés sur votre système.</p>
+                    </div>
+                </section>
+                
+                <!-- Configuration Section -->
+                <section id="configuration" class="doc-section">
+                    <h2>Configuration</h2>
+                    <p>HERMES AGENT est hautement configurable via des fichiers de configuration et des variables d'environnement.</p>
+                    
+                    <h3>Fichier de configuration</h3>
+                    <p>Le fichier de configuration principal se trouve dans <code>~/.hermes/config.yaml</code> :</p>
+                    <div class="code-block">
+                        <code>provider: anthropic<br>
+model: claude-opus-4.6<br>
+max_iterations: 90<br>
+session_id: default<br>
+platform: cli</code>
+                    </div>
+                    
+                    <h3>Variables d'environnement</h3>
+                    <p>Configurez vos clés API via les variables d'environnement :</p>
+                    <div class="code-block">
+                        <code>export ANTHROPIC_API_KEY="your-api-key"<br>
+export OPENAI_API_KEY="your-api-key"</code>
+                    </div>
+                    
+                    <h3>Options principales</h3>
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Option</th>
+                                <th>Description</th>
+                                <th>Par défaut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>provider</code></td>
+                                <td>Fournisseur de modèle IA</td>
+                                <td>anthropic</td>
+                            </tr>
+                            <tr>
+                                <td><code>model</code></td>
+                                <td>Modèle à utiliser</td>
+                                <td>claude-opus-4.6</td>
+                            </tr>
+                            <tr>
+                                <td><code>max_iterations</code></td>
+                                <td>Max itérations par session</td>
+                                <td>90</td>
+                            </tr>
+                            <tr>
+                                <td><code>quiet_mode</code></td>
+                                <td>Mode silencieux</td>
+                                <td>false</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                
+                <!-- Utilisation Section -->
+                <section id="utilisation" class="doc-section">
+                    <h2>Utilisation</h2>
+                    <p>Comment utiliser HERMES AGENT pour vos projets de développement.</p>
+                    
+                    <h3>Mode CLI</h3>
+                    <p>Lancez HERMES AGENT en mode ligne de commande :</p>
+                    <div class="code-block">
+                        <code>hermes --model anthropic/claude-opus-4.6<br>
+hermes --tui  # Interface TUI interactive</code>
+                    </div>
+                    
+                    <h3>Mode conversation</h3>
+                    <p>Utilisez HERMES AGENT comme assistant de développement :</p>
+                    <div class="code-block">
+                        <code># Exemple de conversation<br>
+&gt; Crée une API REST avec FastAPI<br>
+&gt; Génère un modèle de données utilisateur<br>
+&gt; Teste l'application</code>
+                    </div>
+                    
+                    <h3>Trajectoires et sessions</h3>
+                    <p>HERMES AGENT sauvegarde automatiquement vos sessions :</p>
+                    <ul>
+                        <li>Historique des conversations dans <code>~/.hermes/sessions/</code></li>
+                        <li>Sauvegarde des trajectoires de développement</li>
+                        <li>Recherche FTS5 intégrée dans l'historique</li>
+                    </ul>
+                    
+                    <div class="info-box">
+                        <p><strong>Astuce :</strong> Utilisez <code>/save</code> pour sauvegarder manuellement une session.</p>
+                    </div>
+                </section>
+                
+                <!-- Commandes Section -->
+                <section id="commandes" class="doc-section">
+                    <h2>Commandes slash</h2>
+                    <p>HERMES AGENT dispose de nombreuses commandes slash pour contrôler son comportement.</p>
+                    
+                    <h3>Commandes principales</h3>
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Commande</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>/model</code></td>
+                                <td>Changer de modèle IA</td>
+                            </tr>
+                            <tr>
+                                <td><code>/tools</code></td>
+                                <td>Gérer les outils activés</td>
+                            </tr>
+                            <tr>
+                                <td><code>/skills</code></td>
+                                <td>Installer/gérer les compétences</td>
+                            </tr>
+                            <tr>
+                                <td><code>/save</code></td>
+                                <td>Sauvegarder la session</td>
+                            </tr>
+                            <tr>
+                                <td><code>/clear</code></td>
+                                <td>Effacer le contexte</td>
+                            </tr>
+                            <tr>
+                                <td><code>/help</code></td>
+                                <td>Afficher l'aide</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                
+                <!-- Outils Section -->
+                <section id="outils" class="doc-section">
+                    <h2>Outils disponibles</h2>
+                    <p>HERMES AGENT dispose d'une large gamme d'outils pour le développement.</p>
+                    
+                    <h3>Outils de base</h3>
+                    <ul>
+                        <li><strong>Terminal</strong> - Exécution de commandes système</li>
+                        <li><strong>Fichiers</strong> - Lecture, écriture, recherche et modification</li>
+                        <li><strong>Web</strong> - Recherche et extraction de contenu web</li>
+                        <li><strong>Browser</strong> - Automatisation navigateur via Browserbase</li>
+                    </ul>
+                    
+                    <h3>Outils avancés</h3>
+                    <ul>
+                        <li><strong>Code Execution</strong> - Exécution sécurisée de code Python</li>
+                        <li><strong>MCP</strong> - Intégration Model Context Protocol</li>
+                        <li><strong>Delegation</strong> - Délégation à des sous-agents</li>
+                        <li><strong>Scheduling</strong> - Planification de tâches récurrentes</li>
+                    </ul>
+                    
+                    <div class="info-box">
+                        <p><strong>Configuration :</strong> Activez/désactivez les outils avec <code>/tools</code> ou dans la configuration.</p>
+                    </div>
+                </section>
+                
+                <!-- Intégration Section -->
+                <section id="integration" class="doc-section">
+                    <h2>Intégrations</h2>
+                    <p>HERMES AGENT s'intègre avec de nombreuses plateformes et services.</p>
+                    
+                    <h3>Plateformes supportées</h3>
+                    <ul>
+                        <li><strong>Telegram</strong> - Bot Telegram interactif</li>
+                        <li><strong>Discord</strong> - Bot Discord pour serveurs</li>
+                        <li><strong>Slack</strong> - Intégration workspace Slack</li>
+                        <li><strong>WhatsApp</strong> - Bot WhatsApp via Twilio</li>
+                        <li><strong>Signal</strong> - Support Signal</li>
+                        <li><strong>Home Assistant</strong> - Assistant maison</li>
+                    </ul>
+                    
+                    <h3>Extensions IDE</h3>
+                    <ul>
+                        <li><strong>VS Code</strong> - Extension ACP</li>
+                        <li><strong>JetBrains</strong> - Plugin IDE</li>
+                        <li><strong>Zed</strong> - Intégration native</li>
+                    </ul>
+                    
+                    <div class="info-box">
+                        <p><strong>Documentation API :</strong> Consultez la page <a href="api.html">API</a> pour les intégrations personnalisées.</p>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 HERMES AGENT. Tous droits réservés.</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="index.html">Accueil</a> • 
+                <a href="docs.html">Documentation</a> • 
+                <a href="api.html">API</a> • 
+                <a href="blog.html">Blog</a>
+            </p>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" aria-label="Remonter">↑</button>
+    
+    <!-- Scripts -->
+    <script>
+        // Scroll to top button
+        const scrollBtn = document.querySelector('.scroll-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Active nav link based on scroll
+        const sections = document.querySelectorAll('.doc-section');
+        const navLinks = document.querySelectorAll('.docs-nav-link');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // View Transitions API
+        if ('startViewTransition' in document) {
+            document.querySelectorAll('a[href$=".html"]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (!link.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const href = link.getAttribute('href');
+                        
+                        document.startViewTransition(() => {
+                            window.location.href = href;
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
